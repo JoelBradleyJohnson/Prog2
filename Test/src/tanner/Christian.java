@@ -1,10 +1,5 @@
 package tanner;
 
-/**
- * My butt
- * @author 216280
- *
- */
 public class Christian {
 
 	public static void main(String[] args) {
