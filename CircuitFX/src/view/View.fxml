@@ -8,9 +8,37 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <children>
-      <Button alignment="CENTER" layoutX="224.0" layoutY="335.0" mnemonicParsing="false" onAction="#handleClick" prefHeight="52.0" prefWidth="153.0" text="Calculate">
+      <Button alignment="CENTER" defaultButton="true" layoutX="224.0" layoutY="301.0" mnemonicParsing="false" onAction="#handleClick" prefHeight="52.0" prefWidth="153.0" text="Calcular">
          <font>
             <Font name="Arial Black" size="19.0" />
          </font></Button>
+      <Label layoutX="169.0" layoutY="142.0" prefHeight="34.0" prefWidth="105.0" text="Voltaje:" textFill="#0826ff">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="169.0" layoutY="185.0" prefHeight="34.0" prefWidth="105.0" text="Amperaje:" textFill="#c0c908">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="169.0" layoutY="229.0" prefHeight="34.0" prefWidth="105.0" text="Resistencia:" textFill="#b20505">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtVoltage" layoutX="282.0" layoutY="147.0" />
+      <TextField fx:id="txtAmperage" layoutX="282.0" layoutY="190.0" />
+      <TextField fx:id="txtResistance" layoutX="282.0" layoutY="233.0" />
+      <Label layoutX="61.0" layoutY="39.0" prefHeight="58.0" prefWidth="479.0" text="Ingrese dos de los tres valores y se calculará el que falta." wrapText="true">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Button layoutX="22.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleClear" prefHeight="34.0" prefWidth="78.0" text="Claro">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
