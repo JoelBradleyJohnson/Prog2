@@ -81,7 +81,7 @@ public class Controller {
 			if (calculationFail) {
 				errorInput();
 			} else {
-				errorInput();
+				txtAmperage.setText(String.valueOf(myCircuit.getAmperage()));
 			}
 		}
 
@@ -141,9 +141,9 @@ public class Controller {
 	void setResistance() {
 		try {
 			myCircuit.setResistance(Double.parseDouble(txtResistance.getText()));
-		} catch (InputMismatchException e) {
-			calculationFail = true;
 		} catch (NumberFormatException e) {
+			calculationFail = true;
+		} catch (InputMismatchException e) {
 			calculationFail = true;
 		}
 	}
