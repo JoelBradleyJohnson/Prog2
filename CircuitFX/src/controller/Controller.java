@@ -81,7 +81,7 @@ public class Controller {
 			if (calculationFail) {
 				errorInput();
 			} else {
-				txtAmperage.setText(String.valueOf(myCircuit.getAmperage()));
+				errorInput();
 			}
 		}
 
@@ -115,6 +115,8 @@ public class Controller {
 			myCircuit.setAmperage(Double.parseDouble(txtAmperage.getText()));
 		} catch (NumberFormatException e) {
 			calculationFail = true;
+		} catch (InputMismatchException e) {
+			calculationFail = true;
 		}
 	}
 
@@ -127,6 +129,8 @@ public class Controller {
 			myCircuit.setVoltage(Double.parseDouble(txtVoltage.getText()));
 		} catch (NumberFormatException e) {
 			calculationFail = true;
+		} catch (InputMismatchException e) {
+			calculationFail = true;
 		}
 	}
 	
@@ -138,6 +142,8 @@ public class Controller {
 		try {
 			myCircuit.setResistance(Double.parseDouble(txtResistance.getText()));
 		} catch (InputMismatchException e) {
+			calculationFail = true;
+		} catch (NumberFormatException e) {
 			calculationFail = true;
 		}
 	}
