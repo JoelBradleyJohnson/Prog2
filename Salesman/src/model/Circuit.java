@@ -1,31 +1,38 @@
 package model;
 
 /**
- * This following class stores toy data.
+ * This following class stores circuit data.
  * @author 216280
  */
 public class Circuit implements ICircuit {
 
 	/**
-	 * This method does stuff.
+	 * Primitive variable for toy ID.
+	 */
+	private int toyID;
+	/**
+	 * Primitive variable for circuit ID.
+	 */
+	private int circuitID;
+	
+	/**
+	 * Accessor for toy ID.
 	 */
 	@Override
 	public int getToyID() {
-		// TODO Auto-generated method stub
-		return 0;
+		return toyID;
 	}
 
 	/**
-	 * This method does stuff.
+	 * Accessor for circuit ID.
 	 */
 	@Override
 	public int getCircuitID() {
-		// TODO Auto-generated method stub
-		return 0;
+		return circuitID;
 	}
 
 	/**
-	 * This method does stuff.
+	 * Accessor for voltage.
 	 */
 	@Override
 	public double getVoltage() {
@@ -34,7 +41,7 @@ public class Circuit implements ICircuit {
 	}
 
 	/**
-	 * This method does stuff.
+	 * Accessor for amperage.
 	 */
 	@Override
 	public double getAmperage() {
@@ -43,25 +50,23 @@ public class Circuit implements ICircuit {
 	}
 
 	/**
-	 * This method does stuff.
+	 * Accessor for resistance.
 	 */
 	@Override
 	public double getResistance() {
-		// TODO Auto-generated method stub
-		return 0;
+		return resistance;
 	}
 
 	/**
-	 * This method does stuff.
+	 * Accessor manufactureLocation.
 	 */
 	@Override
 	public String getManufactureLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return manufactureLocation;
 	}
 
 	/**
-	 * This method does stuff.
+	 * Mutator for 
 	 */
 	@Override
 	public void setToyID(final int pToyID) {
