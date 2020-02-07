@@ -4,16 +4,37 @@ package model;
  * This following class stores circuit data.
  * @author 216280
  */
-public class Circuit implements ICircuit {
+public class Circuit implements ICircuit, IPermanentStorage {
 
 	/**
 	 * Primitive variable for toy ID.
+	 * We need to have this variable to track the circuits in the database.
 	 */
 	private int toyID;
 	/**
 	 * Primitive variable for circuit ID.
 	 */
 	private int circuitID;
+	/**
+	 * Primitive variable for voltage.
+	 */
+	private double voltage;
+	/**
+	 * Primitive variable for resistance.
+	 */
+	private double resistance;
+	/**
+	 * Primitive variable for manufacture location.
+	 */
+	private String manufactureLocation;
+	
+	/**
+	 * This method is a constructor.
+	 * @param pCircuitID This parameter does some stuff.
+	 */
+	public Circuit (int pCircuitID) {
+		circuitID = pCircuitID;
+	}
 	
 	/**
 	 * Accessor for toy ID.
@@ -36,8 +57,7 @@ public class Circuit implements ICircuit {
 	 */
 	@Override
 	public double getVoltage() {
-		// TODO Auto-generated method stub
-		return 0;
+		return voltage;
 	}
 
 	/**
@@ -45,8 +65,7 @@ public class Circuit implements ICircuit {
 	 */
 	@Override
 	public double getAmperage() {
-		// TODO Auto-generated method stub
-		return 0;
+		return voltage / resistance;
 	}
 
 	/**
@@ -66,12 +85,11 @@ public class Circuit implements ICircuit {
 	}
 
 	/**
-	 * Mutator for 
+	 * Mutator for toy ID.
 	 */
 	@Override
 	public void setToyID(final int pToyID) {
-		// TODO Auto-generated method stub
-		
+		toyID = pToyID;
 	}
 
 	/**
@@ -79,8 +97,7 @@ public class Circuit implements ICircuit {
 	 */
 	@Override
 	public void setCircuitID(final int pCircuitID) {
-		// TODO Auto-generated method stub
-		
+		circuitID = pCircuitID;		
 	}
 
 	/**
@@ -88,8 +105,7 @@ public class Circuit implements ICircuit {
 	 */
 	@Override
 	public void setVoltage(final double pVoltage) {
-		// TODO Auto-generated method stub
-		
+		voltage = pVoltage;		
 	}
 
 	/**
@@ -97,8 +113,7 @@ public class Circuit implements ICircuit {
 	 */
 	@Override
 	public void setResistance(final double pResistance) {
-		// TODO Auto-generated method stub
-		
+		resistance = pResistance;
 	}
 
 	/**
@@ -106,8 +121,31 @@ public class Circuit implements ICircuit {
 	 */
 	@Override
 	public void setManufactureLocation(final String pManufactureLocation) {
-		// TODO Auto-generated method stub
-		
+		manufactureLocation = pManufactureLocation;
+	}
+	
+	/**
+	 * This method does stuff.
+	 */
+	@Override
+	public void save() {
+		throw new UnsupportedOperationException("Not implemented yet");
+	}
+
+	/**
+	 * This method does stuff.
+	 */
+	@Override
+	public void delete() {
+		throw new UnsupportedOperationException("Not implemented yet");
+	}
+
+	/**
+	 * This method does stuff.
+	 */
+	@Override
+	public void load(int... id) {
+		throw new UnsupportedOperationException("Not implemented yet");
 	}
 	
 }

@@ -6,32 +6,28 @@ import java.time.LocalDateTime;
  * This contains the model for the toy field.
  * @author 216280
  */
-public class Toy implements IToy {
+public class Toy implements IToy,IPermanentStorage {
 
 	/**
 	 * Primitive data point for toy ID.
 	 */
 	private int toyID;
-
 	/**
 	 * Primitive data point for inspector.
 	 */
 	private String inspector;
-
 	/**
 	 * Primitive data point for time stamp.
 	 */
 	private LocalDateTime inspectionDateTime;
-
 	/**
 	 * Primitive data point for circuit 1.
 	 */
-	private Circuit circuit1;
-
+	private Circuit circuit1 = new Circuit(1);
 	/**
 	 * Primitive data point for circuit 2.
 	 */
-	private Circuit circuit2;
+	private Circuit circuit2 = new Circuit(2);
 
 	/**
 	 * Accessor for toy ID.
@@ -79,7 +75,8 @@ public class Toy implements IToy {
 	@Override
 	public void setToyID(final int pToyID) {
 		toyID = pToyID;
-
+		circuit1.setToyID(pToyID);
+		circuit2.setToyID(pToyID);
 	}
 
 	/**
@@ -96,7 +93,6 @@ public class Toy implements IToy {
 	@Override
 	public void setInspectionDateTime(final LocalDateTime pInspectionDateTime) {
 		inspectionDateTime = pInspectionDateTime;
-
 	}
 
 	/**
@@ -113,6 +109,31 @@ public class Toy implements IToy {
 	@Override
 	public void setCircuit2(final Circuit pCircuit2) {
 		circuit2 = pCircuit2;
+	}
+
+	/**
+	 * I don't know why this exists.
+	 */
+	@Override
+	public void save() {
+		throw new UnsupportedOperationException("Not implemented yet");
+	}
+
+	/**
+	 * I don't know why this exists.
+	 */
+	@Override
+	public void delete() {
+		throw new UnsupportedOperationException("Not implemented yet");
+	}
+	
+	/**
+	 * I don't know why this exists.
+	 * @param id This parameter can accept multiple arguments (ID's) at once.
+	 */
+	@Override
+	public void load(int... id) {
+		throw new UnsupportedOperationException("Not implemented yet");
 	}
 
 }

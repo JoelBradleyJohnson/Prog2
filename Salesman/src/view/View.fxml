@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="156.0" layoutX="16.0" layoutY="186.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" width="275.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="156.0" layoutX="298.0" layoutY="186.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" width="297.0" />
-      <Button defaultButton="true" layoutX="266.0" layoutY="361.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="68.0" text="Save" />
+      <Button defaultButton="true" layoutX="266.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="15.0" prefWidth="68.0" text="Save" />
       <Label layoutX="67.0" layoutY="6.0" prefHeight="75.0" prefWidth="491.0" text="This form allows data entry on the Talking Salesman toy for quality control purposes. (All information is property of Kembell Berkstresser Enterprises. Only authorized employees may use this form.)" wrapText="true">
          <font>
             <Font size="15.0" />
@@ -69,7 +69,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button cancelButton="true" layoutX="19.0" layoutY="361.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="68.0" text="Clear" />
+      <Button cancelButton="true" layoutX="19.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleClear" prefHeight="15.0" prefWidth="68.0" text="Clear" />
       <ChoiceBox layoutX="129.0" layoutY="300.0" prefWidth="150.0" />
       <ChoiceBox layoutX="432.0" layoutY="300.0" prefWidth="150.0" />
       <Label layoutX="323.0" layoutY="300.0" prefHeight="25.0" prefWidth="94.0" text="Mfg. Location:">
