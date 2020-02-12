@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,7 +37,7 @@ public class Controller {
 	}
 
     @FXML
-    void handleSave(ActionEvent event) {
+    void handleSave(ActionEvent event) throws SQLException {
     	Toy myToy = new Toy();
     	
     	// Set toy-only properties
@@ -55,7 +56,7 @@ public class Controller {
     	myToy.getCircuit2().setManufactureLocation(choiceBox2.getSelectionModel().getSelectedItem());
     	
     	//Save everything
-    	//myToy.save();
+    	myToy.save();
     	
     	StringBuilder results = new StringBuilder();
     	results.append("\n----------------------");

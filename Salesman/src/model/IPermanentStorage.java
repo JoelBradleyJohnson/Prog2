@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.SQLException;
+
 /**
  * This interface defines the methods needed to save data to permanent storage.
  * 
@@ -9,8 +11,9 @@ package model;
 public interface IPermanentStorage {
 	/**
 	 * Saves the values stored in the class to permanent storage.
+	 * @throws SQLException 
 	 */
-	void save();
+	void save() throws SQLException;
 
 	/**
 	 * Deletes the currently loaded values from permanent storage.

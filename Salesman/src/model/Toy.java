@@ -1,6 +1,12 @@
 package model;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import db.Database;
+import db.Parameter;
 
 /**
  * This contains the model for the toy field.
@@ -113,10 +119,23 @@ public class Toy implements IToy,IPermanentStorage {
 
 	/**
 	 * I don't know why this exists.
+	 * @throws SQLException This throws an exception to the controller.
 	 */
 	@Override
-	public void save() {
-		throw new UnsupportedOperationException("Not implemented yet");
+	public void save() throws SQLException {
+		Database db = new Database("db.cberkstresser.name");
+		List<Parameter<?>> params = new ArrayList<>();
+		
+		// ToyID, Inspector, InspectionDateTime
+		params.add(new Parameter<Integer>(toyID));
+		params.add(new Parameter<String>(inspector));
+		params.add(new Parameter<LocalDateTime>(inspectionDateTime));
+		
+		db.executeSql("usp_SaveToy", params);
+		
+		// When the toy is saved, so is circuit 1 & 2.
+		circuit1.save();
+		circuit2.save();
 	}
 
 	/**
