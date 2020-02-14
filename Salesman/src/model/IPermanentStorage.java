@@ -18,7 +18,7 @@ public interface IPermanentStorage {
 	/**
 	 * Deletes the currently loaded values from permanent storage.
 	 */
-	void delete();
+	void delete() throws SQLException;
 
 	/**
 	 * Loads a saved circuit from permanent storage.

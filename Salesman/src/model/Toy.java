@@ -140,10 +140,16 @@ public class Toy implements IToy,IPermanentStorage {
 
 	/**
 	 * I don't know why this exists.
+	 * @throws SQLException 
 	 */
 	@Override
-	public void delete() {
-		throw new UnsupportedOperationException("Not implemented yet");
+	public void delete() throws SQLException {
+		Database db = new Database ("db.cberkstresser.name");
+		List<Parameter<?>> params = new ArrayList<>();
+		
+		params.add(new Parameter<Integer>(toyID));
+		
+		db.executeSql("usp_DeleteToy", params);		
 	}
 	
 	/**

@@ -2,14 +2,28 @@ package controller;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Optional;
+
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.util.Duration;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.Circuit;
 import model.Toy;
 
 public class Controller {
+	
+	/**
+	 * My Global Instance of toy.
+	 */
+	@FXML
+	private Toy myToy = new Toy();
 	
 	@FXML
     private ChoiceBox<String> choiceBox1;
@@ -19,6 +33,12 @@ public class Controller {
     
     @FXML
 	private TextField txtToyID, txtInspector, txtVoltage1, txtVoltage2, txtResistance1, txtResistance2;
+    
+    @FXML
+    private Button btnDelete;
+    
+    @FXML
+    private Label txtSaved;
     
     /**
      * Like a constructor. Whatever you want in the program on startup.
@@ -38,8 +58,7 @@ public class Controller {
 
     @FXML
     void handleSave(ActionEvent event) throws SQLException {
-    	Toy myToy = new Toy();
-    	
+    	  	
     	// Set toy-only properties
     	myToy.setToyID(Integer.parseInt(txtToyID.getText()));
     	myToy.setInspector(txtInspector.getText());
@@ -57,6 +76,8 @@ public class Controller {
     	
     	//Save everything
     	myToy.save();
+    	initializetxtSaved();
+    	btnDelete.setDisable(false);
     	
     	StringBuilder results = new StringBuilder();
     	results.append("\n----------------------");
@@ -81,6 +102,55 @@ public class Controller {
     	System.out.println(results);
     }
 
+    @FXML
+    void handleDelete (ActionEvent event) {
+    	try {
+    		Alert myAlert = new Alert(AlertType.CONFIRMATION);
+    		myAlert.setTitle("Confirm Delete");
+    		myAlert.setHeaderText("Are you sure?");
+    		myAlert.setContentText("Are your sure you want to delete ToyID: " + myToy.getToyID());
+    		Optional<ButtonType> answer = myAlert.showAndWait();
+    		if (answer.isPresent() && answer.get().equals(ButtonType.OK)) {
+    			myToy.delete();
+    			Alert deleted = new Alert(AlertType.INFORMATION);
+    			deleted.setTitle("Deleted");
+    			deleted.setContentText("ToyID " + myToy.getToyID() + " deleted.");
+    			deleted.showAndWait();
+    			handleClear(null);
+    			btnDelete.setDisable(true);
+    		} else {
+    			Alert cancelled = new Alert(AlertType.INFORMATION);
+    			cancelled.setTitle("Delete Cancelled");
+    			cancelled.setContentText("ToyID " + myToy.getToyID() + " not deleted!");
+    			cancelled.showAndWait();
+    		}
+    		
+		} catch (SQLException e) {
+			// TODO Some message about an error to a user.
+			e.printStackTrace();
+		}
+    }
+    
+    @FXML
+    private FadeTransition fadeIn = new FadeTransition(Duration.millis(3000));
+    
+    @FXML
+     void initializetxtSaved() {
+        fadeIn.setNode(txtSaved);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.setCycleCount(1);
+        fadeIn.setAutoReverse(false);
+    }
+    
+    @FXML
+    private void handleSaveButtonClicked(ActionEvent event) {
+    	if (!txtSaved.isVisible()) {
+            txtSaved.setVisible(true);
+            fadeIn.playFromStart();
+    	}
+    }
+    	
     @FXML
     void handleClear(ActionEvent event) {
     	txtVoltage1.clear();
