@@ -12,7 +12,7 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="219.0" layoutX="40.0" layoutY="245.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" width="367.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="219.0" layoutX="466.0" layoutY="245.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" width="367.0" />
-      <Button defaultButton="true" layoutX="753.0" layoutY="503.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="34.0" prefWidth="94.0" text="Save" />
+      <Button defaultButton="true" layoutX="753.0" layoutY="503.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="34.0" prefWidth="94.0" style="-fx-background-color: lightgrey;" text="Save" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="6.0" prefHeight="60.0" prefWidth="786.0" text="This form allows data entry on the Talking Salesman toy for quality control purposes. (All information is property of Kembell Berkstresser Enterprises. Only authorized employees may use this form.)" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="15.0" />
@@ -53,7 +53,46 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="txtSaved" layoutX="432.0" layoutY="365.0" prefHeight="17.0" prefWidth="68.0" text="Item Saved" visible="false" />
-      <Button fx:id="btnDelete" disable="true" layoutX="646.0" layoutY="503.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="34.0" prefWidth="94.0" text="Delete" />
+      <Button fx:id="btnDelete" disable="true" layoutX="646.0" layoutY="503.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="34.0" prefWidth="94.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE" />
+      <Label fx:id="txtResistance1A" layoutX="135.0" layoutY="339.0" prefHeight="4.0" prefWidth="11.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtVoltage2A" layoutX="561.0" layoutY="285.0" prefHeight="4.0" prefWidth="11.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtResistance2A" layoutX="561.0" layoutY="339.0" prefHeight="4.0" prefWidth="11.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtVoltage1A" layoutX="135.0" layoutY="285.0" prefHeight="4.0" prefWidth="11.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtInspectorA" layoutX="327.0" layoutY="77.0" prefHeight="4.0" prefWidth="11.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtToyIDA" layoutX="327.0" layoutY="136.0" prefHeight="4.0" prefWidth="11.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtMan1A" layoutX="135.0" layoutY="392.0" prefHeight="4.0" prefWidth="11.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtMan2A" layoutX="561.0" layoutY="392.0" prefHeight="4.0" prefWidth="11.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

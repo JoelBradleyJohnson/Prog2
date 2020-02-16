@@ -2,14 +2,13 @@ package controller;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.InputMismatchException;
 import java.util.Optional;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
@@ -38,7 +37,8 @@ public class Controller {
 	private Button btnDelete;
 
 	@FXML
-	private Label txtSaved;
+	private Label txtToyIDA, txtInspectorA, txtVoltage1A, txtVoltage2A, txtResistance1A, txtResistance2A, txtMan1A,
+			txtMan2A;
 
 	/**
 	 * Like a constructor. Whatever you want in the program on startup.
@@ -55,62 +55,59 @@ public class Controller {
 		choiceBox2.getItems().add("Germany");
 		choiceBox2.getItems().add("China");
 	}
-	
-	@FXML
-	void txtSavedFade() {
-		FadeTransition fader = new FadeTransition(Duration.seconds(2), txtSaved);		
-		fader.setFromValue(0.0);
-		fader.setToValue(1.0);
-		fader.setCycleCount(1);
-		fader.setAutoReverse(true);
-		fader.play();
-	}
-
 
 	@FXML
 	void handleSave(ActionEvent event) throws SQLException {
 
-		// Set toy-only properties
-		myToy.setToyID(Integer.parseInt(txtToyID.getText()));
-		myToy.setInspector(txtInspector.getText());
-		myToy.setInspectionDateTime(LocalDateTime.now());
+		if (textIsEmpty() || choiceIsEmpty()) {
+			choiceIsEmpty();
+			errorEmpty();
+		} else {
+			if (calculationFail()) {
+				errorInvalidInput();
+			} else {
+				// Set toy-only properties
+				myToy.setToyID(Integer.parseInt(txtToyID.getText()));
+				myToy.setInspector(txtInspector.getText());
+				myToy.setInspectionDateTime(LocalDateTime.now());
 
-		// Set circuit1 properties
-		myToy.getCircuit1().setVoltage(Double.parseDouble(txtVoltage1.getText()));
-		myToy.getCircuit1().setResistance(Double.parseDouble(txtResistance1.getText()));
-		myToy.getCircuit1().setManufactureLocation(choiceBox1.getSelectionModel().getSelectedItem());
+				// Set circuit1 properties
+				myToy.getCircuit1().setVoltage(Double.parseDouble(txtVoltage1.getText()));
+				myToy.getCircuit1().setResistance(Double.parseDouble(txtResistance1.getText()));
+				myToy.getCircuit1().setManufactureLocation(choiceBox1.getSelectionModel().getSelectedItem());
 
-		// Set circuit2 properties
-		myToy.getCircuit2().setVoltage(Double.parseDouble(txtVoltage2.getText()));
-		myToy.getCircuit2().setResistance(Double.parseDouble(txtResistance2.getText()));
-		myToy.getCircuit2().setManufactureLocation(choiceBox2.getSelectionModel().getSelectedItem());
+				// Set circuit2 properties
+				myToy.getCircuit2().setVoltage(Double.parseDouble(txtVoltage2.getText()));
+				myToy.getCircuit2().setResistance(Double.parseDouble(txtResistance2.getText()));
+				myToy.getCircuit2().setManufactureLocation(choiceBox2.getSelectionModel().getSelectedItem());
 
-		// Save everything
-		myToy.save();
-		txtSavedFade();
-		btnDelete.setDisable(false);
+				// Save everything
+				myToy.save();
+				btnDelete.setDisable(false);
 
-		StringBuilder results = new StringBuilder();
-		results.append("\n----------------------");
-		results.append("\nToy Information");
-		results.append("\nInspector Name: " + myToy.getInspector());
-		results.append("\nInspection Date/Time: " + myToy.getInspectionDateTime());
-		results.append("\nToyID: " + myToy.getToyID());
-		results.append("\n----------------------");
-		results.append("\nCircuit 1 Information");
-		results.append("\nCircuit ID: " + myToy.getCircuit1().getCircuitID());
-		results.append("\nVoltage: " + myToy.getCircuit1().getVoltage());
-		results.append("\nAmperage: " + myToy.getCircuit1().getAmperage());
-		results.append("\nResistance: " + myToy.getCircuit1().getResistance());
-		results.append("\nLocation: " + myToy.getCircuit1().getManufactureLocation());
-		results.append("\n----------------------");
-		results.append("\nCircuit 2 Information");
-		results.append("\nCircuit ID: " + myToy.getCircuit2().getCircuitID());
-		results.append("\nVoltage: " + myToy.getCircuit2().getVoltage());
-		results.append("\nAmperage: " + myToy.getCircuit2().getAmperage());
-		results.append("\nResistance: " + myToy.getCircuit2().getResistance());
-		results.append("\nLocation: " + myToy.getCircuit2().getManufactureLocation());
-		System.out.println(results);
+				StringBuilder results = new StringBuilder();
+				results.append("\n----------------------");
+				results.append("\nToy Information");
+				results.append("\nInspector Name: " + myToy.getInspector());
+				results.append("\nInspection Date/Time: " + myToy.getInspectionDateTime());
+				results.append("\nToyID: " + myToy.getToyID());
+				results.append("\n----------------------");
+				results.append("\nCircuit 1 Information");
+				results.append("\nCircuit ID: " + myToy.getCircuit1().getCircuitID());
+				results.append("\nVoltage: " + myToy.getCircuit1().getVoltage());
+				results.append("\nAmperage: " + myToy.getCircuit1().getAmperage());
+				results.append("\nResistance: " + myToy.getCircuit1().getResistance());
+				results.append("\nLocation: " + myToy.getCircuit1().getManufactureLocation());
+				results.append("\n----------------------");
+				results.append("\nCircuit 2 Information");
+				results.append("\nCircuit ID: " + myToy.getCircuit2().getCircuitID());
+				results.append("\nVoltage: " + myToy.getCircuit2().getVoltage());
+				results.append("\nAmperage: " + myToy.getCircuit2().getAmperage());
+				results.append("\nResistance: " + myToy.getCircuit2().getResistance());
+				results.append("\nLocation: " + myToy.getCircuit2().getManufactureLocation());
+				System.out.println(results);
+			}
+		}
 	}
 
 	@FXML
@@ -125,7 +122,8 @@ public class Controller {
 				myToy.delete();
 				Alert deleted = new Alert(AlertType.INFORMATION);
 				deleted.setTitle("Deleted");
-				deleted.setContentText("ToyID " + myToy.getToyID() + " deleted.");
+				deleted.setHeaderText("Deleted");
+				deleted.setContentText("ToyID " + myToy.getToyID() + " was deleted.");
 				deleted.showAndWait();
 				handleClear(null);
 				btnDelete.setDisable(true);
@@ -141,7 +139,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	void handleClear(ActionEvent event) {
 		txtVoltage1.clear();
@@ -153,4 +151,159 @@ public class Controller {
 		choiceBox2.getSelectionModel().clearSelection();
 	}
 
+	/**
+	 * This method scans for negative text fields.
+	 * 
+	 * @return returns boolean value.
+	 */
+	@FXML
+	private boolean calculationFail() {
+		boolean calculationFail = false;
+		try {
+			myToy.setToyID(Integer.parseInt(txtToyID.getText()));
+		} catch (NumberFormatException e) {
+			calculationFail = true;
+		} catch (InputMismatchException e) {
+			calculationFail = true;
+		}
+
+		try {
+			myToy.setInspector(txtInspector.getText());
+		} catch (NumberFormatException e) {
+			calculationFail = true;
+		} catch (InputMismatchException e) {
+			calculationFail = true;
+		}
+
+		try {
+			myToy.getCircuit1().setVoltage(Double.parseDouble(txtVoltage1.getText()));
+		} catch (NumberFormatException e) {
+			calculationFail = true;
+		} catch (InputMismatchException e) {
+			calculationFail = true;
+		}
+
+		try {
+			myToy.getCircuit1().setResistance(Double.parseDouble(txtResistance1.getText()));
+		} catch (NumberFormatException e) {
+			calculationFail = true;
+		} catch (InputMismatchException e) {
+			calculationFail = true;
+		}
+
+		try {
+			myToy.getCircuit1().setManufactureLocation(choiceBox1.getSelectionModel().getSelectedItem());
+		} catch (NumberFormatException e) {
+			calculationFail = true;
+		} catch (InputMismatchException e) {
+			calculationFail = true;
+		}
+
+		try {
+			myToy.getCircuit2().setVoltage(Double.parseDouble(txtVoltage2.getText()));
+		} catch (NumberFormatException e) {
+			calculationFail = true;
+		} catch (InputMismatchException e) {
+			calculationFail = true;
+		}
+
+		try {
+			myToy.getCircuit2().setResistance(Double.parseDouble(txtResistance2.getText()));
+		} catch (NumberFormatException e) {
+			calculationFail = true;
+		} catch (InputMismatchException e) {
+			calculationFail = true;
+		}
+
+		try {
+			myToy.getCircuit2().setManufactureLocation(choiceBox2.getSelectionModel().getSelectedItem());
+		} catch (NumberFormatException e) {
+			calculationFail = true;
+		} catch (InputMismatchException e) {
+			calculationFail = true;
+		}
+		return calculationFail;
+	}
+
+	/**
+	 * This method scans choice boxes for empty values.
+	 * 
+	 * @return returns boolean value.
+	 */
+	@FXML
+	private boolean choiceIsEmpty() {
+		boolean choiceIsEmpty = false;
+		txtMan1A.setVisible(false);
+		txtMan2A.setVisible(false);
+
+		if (choiceBox1.getSelectionModel().isEmpty()) {
+			choiceIsEmpty = true;
+			txtMan1A.setVisible(true);
+		}
+		if (choiceBox2.getSelectionModel().isEmpty()) {
+			choiceIsEmpty = true;
+			txtMan2A.setVisible(true);
+		}
+		return choiceIsEmpty;
+	}
+
+	/**
+	 * This method scans for empty text fields.
+	 * 
+	 * @return returns the boolean value.
+	 */
+	@FXML
+	private boolean textIsEmpty() {
+		boolean textIsEmpty = false;
+		txtInspectorA.setVisible(false);
+		txtToyIDA.setVisible(false);
+		txtVoltage1A.setVisible(false);
+		txtVoltage2A.setVisible(false);
+		txtResistance1A.setVisible(false);
+		txtResistance2A.setVisible(false);
+
+		if (txtInspector.getText().isBlank()) {
+			textIsEmpty = true;
+			txtInspectorA.setVisible(true);
+		}
+		if (txtToyID.getText().isBlank()) {
+			textIsEmpty = true;
+			txtToyIDA.setVisible(true);
+		}
+		if (txtVoltage1.getText().isBlank()) {
+			textIsEmpty = true;
+			txtVoltage1A.setVisible(true);
+		}
+		if (txtVoltage2.getText().isBlank()) {
+			textIsEmpty = true;
+			txtVoltage2A.setVisible(true);
+		}
+		if (txtResistance1.getText().isBlank()) {
+			textIsEmpty = true;
+			txtResistance1A.setVisible(true);
+		}
+		if (txtResistance2.getText().isBlank()) {
+			textIsEmpty = true;
+			txtResistance2A.setVisible(true);
+		}
+		return textIsEmpty;
+	}
+
+	@FXML
+	void errorEmpty() {
+		Alert empty = new Alert(AlertType.ERROR);
+		empty.setTitle("Error");
+		empty.setHeaderText("Empty Field");
+		empty.setContentText("One or more fields are empty. Please fill in all marked fields");
+		empty.showAndWait();
+	}
+	
+	@FXML
+	void errorInvalidInput() {
+		Alert invalid = new Alert(AlertType.ERROR);
+		invalid.setTitle("Error");
+		invalid.setHeaderText("Invalid Entry");
+		invalid.setContentText("Text and special characters are only allowed in Inspector field. Please enter numbers only.");
+		invalid.showAndWait();
+	}
 }
