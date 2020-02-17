@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,9 +11,10 @@ import db.Parameter;
 
 /**
  * This contains the model for the toy field.
+ * 
  * @author 216280
  */
-public class Toy implements IToy,IPermanentStorage {
+public class Toy implements IToy, IPermanentStorage {
 
 	/**
 	 * Primitive data point for toy ID.
@@ -60,7 +62,7 @@ public class Toy implements IToy,IPermanentStorage {
 	}
 
 	/**
-	 *  Accessor for circuit 1.
+	 * Accessor for circuit 1.
 	 */
 	@Override
 	public Circuit getCircuit1() {
@@ -119,20 +121,21 @@ public class Toy implements IToy,IPermanentStorage {
 
 	/**
 	 * I don't know why this exists.
+	 * 
 	 * @throws SQLException This throws an exception to the controller.
 	 */
 	@Override
 	public void save() throws SQLException {
 		Database db = new Database("db.cberkstresser.name");
 		List<Parameter<?>> params = new ArrayList<>();
-		
+
 		// ToyID, Inspector, InspectionDateTime
 		params.add(new Parameter<Integer>(toyID));
 		params.add(new Parameter<String>(inspector));
 		params.add(new Parameter<LocalDateTime>(inspectionDateTime));
-		
+
 		db.executeSql("usp_SaveToy", params);
-		
+
 		// When the toy is saved, so is circuit 1 & 2.
 		circuit1.save();
 		circuit2.save();
@@ -140,25 +143,38 @@ public class Toy implements IToy,IPermanentStorage {
 
 	/**
 	 * I don't know why this exists.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	@Override
 	public void delete() throws SQLException {
-		Database db = new Database ("db.cberkstresser.name");
+		Database db = new Database("db.cberkstresser.name");
 		List<Parameter<?>> params = new ArrayList<>();
-		
+
 		params.add(new Parameter<Integer>(toyID));
-		
-		db.executeSql("usp_DeleteToy", params);		
+
+		db.executeSql("usp_DeleteToy", params);
 	}
-	
+
 	/**
 	 * I don't know why this exists.
+	 * 
 	 * @param id This parameter can accept multiple arguments (ID's) at once.
 	 */
 	@Override
-	public void load(int... id) {
-		throw new UnsupportedOperationException("Not implemented yet");
+	public void load(int... id) throws SQLException {
+		Database db = new Database("db.cberkstresser.name");
+		List<Parameter<?>> params = new ArrayList<>();
+		params.add(new Parameter<Integer>(id[0]));
+		ResultSet rsToy = db.getResultSet("usp_loadToy", params);
+		// If the next row exists
+		if (rsToy.next()) {
+			toyID = rsToy.getInt("ToyID");
+			inspector = rsToy.getString("Inspector");
+			inspectionDateTime = rsToy.getTimestamp("InspectionDateTime").toLocalDateTime();
+			circuit1.load(toyID, 1);
+			circuit2.load(toyID, 2);
+		}
 	}
 
 }

@@ -25,6 +25,7 @@ public interface IPermanentStorage {
 	 * 
 	 * @param id
 	 *            The unique identifier of the class item to load.
+	 * @throws SQLException 
 	 */
-	void load(int... id);
+	void load(int... id) throws SQLException;
 }

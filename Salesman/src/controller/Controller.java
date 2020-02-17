@@ -31,7 +31,7 @@ public class Controller {
 	private ChoiceBox<String> choiceBox2;
 
 	@FXML
-	private TextField txtToyID, txtInspector, txtVoltage1, txtVoltage2, txtResistance1, txtResistance2;
+	private TextField txtToyID, txtInspector, txtIDT, txtVoltage1, txtVoltage2, txtResistance1, txtResistance2;
 
 	@FXML
 	private Button btnDelete;
@@ -138,6 +138,17 @@ public class Controller {
 			// TODO Some message about an error to a user.
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	void handleLoad(ActionEvent e) throws NumberFormatException, SQLException {
+		myToy.load(Integer.parseInt(txtToyID.getText()));
+		txtInspector.setText(myToy.getInspector());
+		txtIDT.setText(myToy.getInspectionDateTime().toString());
+		txtVoltage1.setText(String.valueOf(myToy.getCircuit1().getVoltage()));
+		txtVoltage2.setText(String.valueOf(myToy.getCircuit2().getVoltage()));
+		txtResistance1.setText(String.valueOf(myToy.getCircuit1().getResistance()));
+		txtResistance2.setText(String.valueOf(myToy.getCircuit2().getResistance()));		
 	}
 
 	@FXML
