@@ -148,7 +148,10 @@ public class Controller {
 		txtVoltage1.setText(String.valueOf(myToy.getCircuit1().getVoltage()));
 		txtVoltage2.setText(String.valueOf(myToy.getCircuit2().getVoltage()));
 		txtResistance1.setText(String.valueOf(myToy.getCircuit1().getResistance()));
-		txtResistance2.setText(String.valueOf(myToy.getCircuit2().getResistance()));		
+		txtResistance2.setText(String.valueOf(myToy.getCircuit2().getResistance()));	
+		choiceBox1.getSelectionModel().select(myToy.getCircuit1().getManufactureLocation());
+		choiceBox2.getSelectionModel().select(myToy.getCircuit2().getManufactureLocation());
+		btnDelete.setDisable(false);
 	}
 
 	@FXML

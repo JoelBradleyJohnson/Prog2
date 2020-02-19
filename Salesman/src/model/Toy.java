@@ -174,6 +174,7 @@ public class Toy implements IToy, IPermanentStorage {
 			inspectionDateTime = rsToy.getTimestamp("InspectionDateTime").toLocalDateTime();
 			circuit1.load(toyID, 1);
 			circuit2.load(toyID, 2);
+			
 		}
 	}
 
