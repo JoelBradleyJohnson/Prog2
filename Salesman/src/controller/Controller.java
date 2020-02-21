@@ -142,6 +142,7 @@ public class Controller {
 	
 	@FXML
 	void handleLoad(ActionEvent e) throws NumberFormatException, SQLException {
+		try {
 		myToy.load(Integer.parseInt(txtToyID.getText()));
 		txtInspector.setText(myToy.getInspector());
 		txtIDT.setText(myToy.getInspectionDateTime().toString());
@@ -152,6 +153,9 @@ public class Controller {
 		choiceBox1.getSelectionModel().select(myToy.getCircuit1().getManufactureLocation());
 		choiceBox2.getSelectionModel().select(myToy.getCircuit2().getManufactureLocation());
 		btnDelete.setDisable(false);
+		} catch (RuntimeException a) {
+			errorNoEntry();
+		}
 	}
 
 	@FXML
@@ -318,6 +322,15 @@ public class Controller {
 		invalid.setTitle("Error");
 		invalid.setHeaderText("Invalid Entry");
 		invalid.setContentText("Text and special characters are only allowed in Inspector field. Please enter numbers only.");
+		invalid.showAndWait();
+	}
+	
+	@FXML
+	void errorNoEntry() {
+		Alert invalid = new Alert(AlertType.ERROR);
+		invalid.setTitle("Error");
+		invalid.setHeaderText("Need Entry");
+		invalid.setContentText("There must be a valid input in the load box to load an application.");
 		invalid.showAndWait();
 	}
 }
