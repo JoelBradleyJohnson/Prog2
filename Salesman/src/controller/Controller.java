@@ -167,6 +167,7 @@ public class Controller {
 		txtToyID.clear();
 		choiceBox1.getSelectionModel().clearSelection();
 		choiceBox2.getSelectionModel().clearSelection();
+		txtToyID.requestFocus();
 	}
 
 	/**
