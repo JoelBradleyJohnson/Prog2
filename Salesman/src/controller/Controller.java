@@ -3,7 +3,9 @@ package controller;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +46,7 @@ public class Controller {
 	 * Like a constructor. Whatever you want in the program on startup.
 	 */
 	@FXML
-	void initialize() {
+	private void initialize() {
 		// Initialize Choice Box 1.
 		choiceBox1.getItems().add("United States");
 		choiceBox1.getItems().add("Germany");
@@ -54,6 +56,8 @@ public class Controller {
 		choiceBox2.getItems().add("United States");
 		choiceBox2.getItems().add("Germany");
 		choiceBox2.getItems().add("China");
+		
+		handleSetLanguageSpanish(null);
 	}
 
 	@FXML
@@ -139,20 +143,20 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	void handleLoad(ActionEvent e) throws NumberFormatException, SQLException {
 		try {
-		myToy.load(Integer.parseInt(txtToyID.getText()));
-		txtInspector.setText(myToy.getInspector());
-		txtIDT.setText(myToy.getInspectionDateTime().toString());
-		txtVoltage1.setText(String.valueOf(myToy.getCircuit1().getVoltage()));
-		txtVoltage2.setText(String.valueOf(myToy.getCircuit2().getVoltage()));
-		txtResistance1.setText(String.valueOf(myToy.getCircuit1().getResistance()));
-		txtResistance2.setText(String.valueOf(myToy.getCircuit2().getResistance()));	
-		choiceBox1.getSelectionModel().select(myToy.getCircuit1().getManufactureLocation());
-		choiceBox2.getSelectionModel().select(myToy.getCircuit2().getManufactureLocation());
-		btnDelete.setDisable(false);
+			myToy.load(Integer.parseInt(txtToyID.getText()));
+			txtInspector.setText(myToy.getInspector());
+			txtIDT.setText(myToy.getInspectionDateTime().toString());
+			txtVoltage1.setText(String.valueOf(myToy.getCircuit1().getVoltage()));
+			txtVoltage2.setText(String.valueOf(myToy.getCircuit2().getVoltage()));
+			txtResistance1.setText(String.valueOf(myToy.getCircuit1().getResistance()));
+			txtResistance2.setText(String.valueOf(myToy.getCircuit2().getResistance()));
+			choiceBox1.getSelectionModel().select(myToy.getCircuit1().getManufactureLocation());
+			choiceBox2.getSelectionModel().select(myToy.getCircuit2().getManufactureLocation());
+			btnDelete.setDisable(false);
 		} catch (RuntimeException a) {
 			errorNoEntry();
 		}
@@ -316,16 +320,17 @@ public class Controller {
 		empty.setContentText("One or more fields are empty. Please fill in all marked fields");
 		empty.showAndWait();
 	}
-	
+
 	@FXML
 	void errorInvalidInput() {
 		Alert invalid = new Alert(AlertType.ERROR);
 		invalid.setTitle("Error");
 		invalid.setHeaderText("Invalid Entry");
-		invalid.setContentText("Text and special characters are only allowed in Inspector field. Please enter numbers only.");
+		invalid.setContentText(
+				"Text and special characters are only allowed in Inspector field. Please enter numbers only.");
 		invalid.showAndWait();
 	}
-	
+
 	@FXML
 	void errorNoEntry() {
 		Alert invalid = new Alert(AlertType.ERROR);
@@ -333,5 +338,24 @@ public class Controller {
 		invalid.setHeaderText("Need Entry");
 		invalid.setContentText("There must be a valid input in the load box to load an application.");
 		invalid.showAndWait();
+	}
+
+	@FXML
+	void handleSetLanguageEnglish(ActionEvent event) {
+		setFieldsWithTranslations("en", "US");
+	}
+
+	@FXML
+	void handleSetLanguageSpanish(ActionEvent event) {
+		setFieldsWithTranslations("es", "MX");
+	}
+
+	private void setFieldsWithTranslations(String language, String region) {
+		Locale myLocale = new Locale(language, region);
+
+		ResourceBundle rb = ResourceBundle.getBundle("Translation", myLocale);
+		//Set all fields that need translations
+		btnDelete.setText(rb.getString("delete"));
+		//TODO: ADD THE OTHERS LATER
 	}
 }
