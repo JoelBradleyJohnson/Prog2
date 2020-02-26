@@ -36,10 +36,10 @@ public class Controller {
 	private TextField txtToyID, txtInspector, txtIDT, txtVoltage1, txtVoltage2, txtResistance1, txtResistance2;
 
 	@FXML
-	private Button btnDelete;
+	private Button btnDelete, btnSave, btnLoad, btnClear;
 
 	@FXML
-	private Label txtToyIDA, txtInspectorA, txtVoltage1A, txtVoltage2A, txtResistance1A, txtResistance2A, txtMan1A,
+	private Label ll1, ll2, lIDT, txtToyIDA, txtInspectorA, txtVoltage1A, txtVoltage2A, txtResistance1A, txtResistance2A, txtMan1A,
 			txtMan2A;
 
 	/**
@@ -356,6 +356,19 @@ public class Controller {
 		ResourceBundle rb = ResourceBundle.getBundle("Translation", myLocale);
 		//Set all fields that need translations
 		btnDelete.setText(rb.getString("delete"));
-		//TODO: ADD THE OTHERS LATER
+		btnSave.setText(rb.getString("save"));
+		btnLoad.setText(rb.getString("load"));
+		btnClear.setText(rb.getString("clear"));
+		txtToyID.setPromptText("toyId");
+		txtInspector.setPromptText(rb.getString("inspector"));
+		txtIDT.setPromptText(rb.getString("inspectionDateTime"));
+		txtVoltage1.setPromptText(rb.getString("voltage"));
+		txtVoltage2.setPromptText(rb.getString("voltage"));
+		txtResistance1.setPromptText(rb.getString("resistance"));
+		txtResistance2.setPromptText(rb.getString("resistance"));
+		lIDT.setText(rb.getString("inspectionDateTime"));
+		ll1.setText(rb.getString("location"));
+		ll2.setText(rb.getString("location"));
+		
 	}
 }
