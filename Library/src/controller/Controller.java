@@ -29,5 +29,5 @@ public class Controller {
 	//Initialize Table with rows
 	tblMain.getItems().setAll(Book.getAll());
 	//you still need the column factory to attach the columns you want to display.
-	
+	clmAuthor.
 }
