@@ -326,8 +326,7 @@ public class Controller {
 		Alert invalid = new Alert(AlertType.ERROR);
 		invalid.setTitle("Error");
 		invalid.setHeaderText("Invalid Entry");
-		invalid.setContentText(
-				"Text and special characters are only allowed in Inspector field. Please enter numbers only.");
+		invalid.setContentText("Text and special characters are only allowed in Inspector field. Please enter numbers only.");
 		invalid.showAndWait();
 	}
 
@@ -339,7 +338,7 @@ public class Controller {
 		invalid.setContentText("There must be a valid input in the load box to load an application.");
 		invalid.showAndWait();
 	}
-
+	
 	@FXML
 	void handleSetLanguageEnglish(ActionEvent event) {
 		setFieldsWithTranslations("en", "US");
@@ -359,9 +358,9 @@ public class Controller {
 		btnSave.setText(rb.getString("save"));
 		btnLoad.setText(rb.getString("load"));
 		btnClear.setText(rb.getString("clear"));
-		txtToyID.setPromptText("toyId");
+		txtToyID.setPromptText(rb.getString("toyId"));
 		txtInspector.setPromptText(rb.getString("inspector"));
-		txtIDT.setPromptText(rb.getString("inspectionDateTime"));
+		txtIDT.setPromptText(rb.getString("calculated"));
 		txtVoltage1.setPromptText(rb.getString("voltage"));
 		txtVoltage2.setPromptText(rb.getString("voltage"));
 		txtResistance1.setPromptText(rb.getString("resistance"));
@@ -369,6 +368,5 @@ public class Controller {
 		lIDT.setText(rb.getString("inspectionDateTime"));
 		ll1.setText(rb.getString("location"));
 		ll2.setText(rb.getString("location"));
-		
 	}
 }

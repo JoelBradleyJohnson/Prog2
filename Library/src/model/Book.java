@@ -35,8 +35,16 @@ public class Book {
 	 */
 	private String location;
 
+	/**
+	 *  Accessor RowID.
+	 * @return returns rowID.
+	 */
 	public int getRowID() {
 		return rowID;
+	}
+	
+	public void setRowID(int pRowID) {
+		rowID = pRowID;
 	}
 
 	/**
@@ -178,7 +186,6 @@ public class Book {
 		params.add(new Parameter<Integer>(rowID));
 
 		db.executeSql("usp_DeleteBook", params);
-
 	}
 	/**
 	 * This Static.
