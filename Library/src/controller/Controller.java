@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -21,7 +19,7 @@ import model.Book;
 public class Controller {
 
 	@FXML
-	private TextField txtAuthor, txtTitle, txtGenre, txtLocation;
+	private TextField txtAuthor, txtTitle, txtGenre, txtLocation, txtRowID;
 
 	@FXML
 	private Button btnSearch, btnSave, btnDelete, btnUpdate, btnClear;
@@ -36,23 +34,30 @@ public class Controller {
 
 	@FXML
 	private void initialize() throws SQLException {
-		// Initialize Table with rows
-		tblMain.getItems().setAll(Book.getAll());
 
 		// you still need the column factory to attach the columns you want to display
 		clmAuthor.setCellValueFactory(new PropertyValueFactory<String, Book>("author"));
 		clmTitle.setCellValueFactory(new PropertyValueFactory<String, Book>("title"));
 		clmGenre.setCellValueFactory(new PropertyValueFactory<String, Book>("genre"));
 		clmLocation.setCellValueFactory(new PropertyValueFactory<String, Book>("location"));
+
+		// Initialize Table with rows
+		tblMain.getItems().setAll(Book.getAll());
 	}
 
 	@FXML
 	private void tblClicked() {
+		Book tempBook = tblMain.getSelectionModel().getSelectedItem();
 		// tblMain.getSelectionModel().getSelectedItem().getRowID();
-		txtAuthor.setText(tblMain.getSelectionModel().getSelectedItem().getAuthor());
-		txtTitle.setText(tblMain.getSelectionModel().getSelectedItem().getTitle());
-		txtGenre.setText(tblMain.getSelectionModel().getSelectedItem().getGenre());
-		txtLocation.setText(tblMain.getSelectionModel().getSelectedItem().getLocation());
+		if (tempBook.getAuthor() != null) {
+			txtAuthor.setText(tempBook.getAuthor());
+		} else {
+			txtAuthor.setText("");
+		}
+		txtTitle.setText(tempBook.getTitle());
+		txtGenre.setText(tempBook.getGenre());
+		txtLocation.setText(tempBook.getLocation());
+		txtRowID.setText(String.valueOf(tempBook.getRowID()));
 		btnSave.setDisable(true);
 	}
 
@@ -133,12 +138,28 @@ public class Controller {
 	}
 
 	@FXML
-	void handleSearch(ActionEvent event) {
-		Alert empty = new Alert(AlertType.INFORMATION);
-		empty.setTitle("No");
-		empty.setHeaderText("Nope.");
-		empty.setContentText("no...");
-		empty.showAndWait();
+	void handleSearch() {
+		try {
+			/*
+			 * Initialize Table with rows tblMain.getItems().setAll(Book.getAll());
+			 * 
+			 * // you still need the column factory to attach the columns you want to
+			 * display clmAuthor.setCellValueFactory(new PropertyValueFactory<String,
+			 * Book>("author")); clmTitle.setCellValueFactory(new
+			 * PropertyValueFactory<String, Book>("title"));
+			 * clmGenre.setCellValueFactory(new PropertyValueFactory<String,
+			 * Book>("genre")); clmLocation.setCellValueFactory(new
+			 * PropertyValueFactory<String, Book>("location"));
+			 */
+			tblMain.getItems().setAll(Book.search(txtAuthor.getText()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		/*
+		 * Alert empty = new Alert(AlertType.INFORMATION); empty.setTitle("No");
+		 * empty.setHeaderText("Nope."); empty.setContentText("no...");
+		 * empty.showAndWait();
+		 */
 	}
 
 	@FXML
@@ -152,14 +173,7 @@ public class Controller {
 
 	@FXML
 	void tableRfsh() throws SQLException {
-		// Initialize Table with rows
 		tblMain.getItems().setAll(Book.getAll());
-
-		// you still need the column factory to attach the columns you want to display
-		clmAuthor.setCellValueFactory(new PropertyValueFactory<String, Book>("author"));
-		clmTitle.setCellValueFactory(new PropertyValueFactory<String, Book>("title"));
-		clmGenre.setCellValueFactory(new PropertyValueFactory<String, Book>("genre"));
-		clmLocation.setCellValueFactory(new PropertyValueFactory<String, Book>("location"));
 	}
 
 	@FXML

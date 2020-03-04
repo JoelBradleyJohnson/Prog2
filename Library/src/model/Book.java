@@ -36,13 +36,14 @@ public class Book {
 	private String location;
 
 	/**
-	 *  Accessor RowID.
+	 * Accessor RowID.
+	 * 
 	 * @return returns rowID.
 	 */
 	public int getRowID() {
 		return rowID;
 	}
-	
+
 	public void setRowID(int pRowID) {
 		rowID = pRowID;
 	}
@@ -168,7 +169,7 @@ public class Book {
 			this.author = rsBook.getString("Author");
 			this.title = rsBook.getString("Title");
 			this.genre = rsBook.getString("Genre");
-			this.location = rsBook.getString("Location");			
+			this.location = rsBook.getString("Location");
 		} else {
 			throw new IllegalArgumentException("That book was not found");
 		}
@@ -187,15 +188,17 @@ public class Book {
 
 		db.executeSql("usp_DeleteBook", params);
 	}
+
 	/**
 	 * This Static.
+	 * 
 	 * @return allBooks returns all the books idiot.
 	 * @throws SQLException boy.
 	 */
 	public static List<Book> getAll() throws SQLException {
 		Database db = new Database("db.cberkstresser.name", "library");
 		List<Book> allBooks = new ArrayList<>();
-		
+
 		ResultSet rsBook = db.getResultSet("usp_GetAllBooks");
 
 		while (rsBook.next()) {
@@ -204,9 +207,30 @@ public class Book {
 			b.author = rsBook.getString("Author");
 			b.title = rsBook.getString("Title");
 			b.genre = rsBook.getString("Genre");
-			b.location = rsBook.getString("Location");	
+			b.location = rsBook.getString("Location");
 			allBooks.add(b);
 		}
-		return allBooks;		
+		return allBooks;
+	}
+
+	public static List<Book> search(String searchTerm) throws SQLException {
+		Database db = new Database("db.cberkstresser.name", "library");
+		List<Parameter<?>> params = new ArrayList<>();
+
+		params.add(new Parameter<String>(searchTerm));
+		List<Book> allBooks = new ArrayList<>();
+
+		ResultSet rsBook = db.getResultSet("usp_FindBooks", params);
+
+		while (rsBook.next()) {
+			Book b = new Book();
+			b.rowID = rsBook.getInt("RowID");
+			b.author = rsBook.getString("Author");
+			b.title = rsBook.getString("Title");
+			b.genre = rsBook.getString("Genre");
+			b.location = rsBook.getString("Location");
+			allBooks.add(b);
+		}
+		return allBooks;
 	}
 }
