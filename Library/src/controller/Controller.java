@@ -19,10 +19,10 @@ import model.Book;
 public class Controller {
 
 	@FXML
-	private TextField txtAuthor, txtTitle, txtGenre, txtLocation, txtRowID;
+	private TextField txtAuthor, txtTitle, txtGenre, txtLocation, txtRowID, txtSearch;
 
 	@FXML
-	private Button btnSearch, btnSave, btnDelete, btnUpdate, btnClear;
+	private Button btnSave, btnDelete, btnUpdate, btnClear;
 
 	@FXML
 	private TableView<Book> tblMain;
@@ -140,26 +140,10 @@ public class Controller {
 	@FXML
 	void handleSearch() {
 		try {
-			/*
-			 * Initialize Table with rows tblMain.getItems().setAll(Book.getAll());
-			 * 
-			 * // you still need the column factory to attach the columns you want to
-			 * display clmAuthor.setCellValueFactory(new PropertyValueFactory<String,
-			 * Book>("author")); clmTitle.setCellValueFactory(new
-			 * PropertyValueFactory<String, Book>("title"));
-			 * clmGenre.setCellValueFactory(new PropertyValueFactory<String,
-			 * Book>("genre")); clmLocation.setCellValueFactory(new
-			 * PropertyValueFactory<String, Book>("location"));
-			 */
-			tblMain.getItems().setAll(Book.search(txtAuthor.getText()));
+			tblMain.getItems().setAll(Book.search(txtSearch.getText()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		/*
-		 * Alert empty = new Alert(AlertType.INFORMATION); empty.setTitle("No");
-		 * empty.setHeaderText("Nope."); empty.setContentText("no...");
-		 * empty.showAndWait();
-		 */
 	}
 
 	@FXML
@@ -182,6 +166,8 @@ public class Controller {
 		txtTitle.setText("");
 		txtGenre.setText("");
 		txtLocation.setText("");
+		txtSearch.setText("");
+		txtRowID.setText("");
 		btnSave.setDisable(false);
 	}
 
