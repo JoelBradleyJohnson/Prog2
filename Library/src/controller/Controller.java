@@ -1,8 +1,13 @@
 package controller;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -144,6 +149,22 @@ public class Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@FXML
+	void handleRickey() {
+		// This gets the path to the project and the audio file for the sound effect
+        String path = new File("").getAbsolutePath() + "\\HRMMM.wav";
+        // Make a File object with a path to the audio file.
+        File sound = new File(path);
+        try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+            Clip c = AudioSystem.getClip();
+            c.open(ais); // Clip opens AudioInputStream
+            c.start(); // Start playing audio
+        } catch (Exception e) {
+        	txtAuthor.setText(e.getMessage());
+        }
 	}
 
 	@FXML
