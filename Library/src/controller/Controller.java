@@ -68,7 +68,7 @@ public class Controller {
 
 	@FXML
 	void handleDelete(ActionEvent event) {
-		if (tblMain.getSelectionModel().isEmpty()) {
+		if (tblMain.getSelectionModel().isEmpty() || txtRowID.getText().isBlank()) {
 			Alert empty = new Alert(AlertType.ERROR);
 			empty.setTitle("Error");
 			empty.setHeaderText("No Row Selected");
@@ -154,7 +154,7 @@ public class Controller {
 	@FXML
 	void handleRickey() {
 		// This gets the path to the project and the audio file for the sound effect
-        String path = new File("").getAbsolutePath() + "\\HRMMM.wav";
+        String path = new File("").getAbsolutePath() + "\\Villager_idle1.wav";
         // Make a File object with a path to the audio file.
         File sound = new File(path);
         try {
@@ -163,17 +163,8 @@ public class Controller {
             c.open(ais); // Clip opens AudioInputStream
             c.start(); // Start playing audio
         } catch (Exception e) {
-        	txtAuthor.setText(e.getMessage());
+        	e.printStackTrace();
         }
-	}
-
-	@FXML
-	void error() {
-		Alert empty = new Alert(AlertType.ERROR);
-		empty.setTitle("Error");
-		empty.setHeaderText("Error");
-		empty.setContentText("Error");
-		empty.showAndWait();
 	}
 
 	@FXML
