@@ -27,7 +27,7 @@ public class Controller {
 	private TextField txtAuthor, txtTitle, txtGenre, txtLocation, txtRowID, txtSearch;
 
 	@FXML
-	private Button btnSave, btnDelete, btnUpdate, btnClear;
+	private Button btnSave, btnDelete, btnUpdate, btnClear, btnRefresh;
 
 	@FXML
 	private TableView<Book> tblMain;
@@ -167,6 +167,11 @@ public class Controller {
         }
 	}
 
+	@FXML
+	void handleRefresh() throws SQLException {
+		tableRfsh();
+	}
+	
 	@FXML
 	void tableRfsh() throws SQLException {
 		tblMain.getItems().setAll(Book.getAll());
