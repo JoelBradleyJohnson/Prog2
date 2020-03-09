@@ -12,12 +12,12 @@ import javax.sound.sampled.Clip;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Book;
 
@@ -150,28 +150,90 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@FXML
+	void handleHelp() {
+		System.out.println("HEllo");
+	}
+	
 	@FXML
 	void handleRickey() {
-		// This gets the path to the project and the audio file for the sound effect
-        String path = new File("").getAbsolutePath() + "\\Villager_idle1.wav";
-        // Make a File object with a path to the audio file.
-        File sound = new File(path);
-        try {
-            AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
-            Clip c = AudioSystem.getClip();
-            c.open(ais); // Clip opens AudioInputStream
-            c.start(); // Start playing audio
-        } catch (Exception e) {
-        	e.printStackTrace();
-        }
+		double rand = Math.random();
+
+		if (rand < .1667) {
+			String path = new File("").getAbsolutePath() + "\\Villager_idle1.wav";
+			File sound = new File(path);
+			try {
+				AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+				Clip c = AudioSystem.getClip();
+				c.open(ais); // Clip opens AudioInputStream
+				c.start(); // Start playing audio
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if ((rand < .3333) && (rand > .1667)) {
+			String path = new File("").getAbsolutePath() + "\\rickoy.wav";
+			File sound = new File(path);
+			try {
+				AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+				Clip c = AudioSystem.getClip();
+				c.open(ais); // Clip opens AudioInputStream
+				c.start(); // Start playing audio
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if ((rand < .5) && (rand > .3333)) {
+			String path = new File("").getAbsolutePath() + "\\Villager-accept1.wav";
+			File sound = new File(path);
+			try {
+				AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+				Clip c = AudioSystem.getClip();
+				c.open(ais); // Clip opens AudioInputStream
+				c.start(); // Start playing audio
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if ((rand < .6667) && (rand > .5)) {
+			String path = new File("").getAbsolutePath() + "\\Villager-death.wav";
+			File sound = new File(path);
+			try {
+				AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+				Clip c = AudioSystem.getClip();
+				c.open(ais); // Clip opens AudioInputStream
+				c.start(); // Start playing audio
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if ((rand < .83333) && (rand > .6667)) {
+			String path = new File("").getAbsolutePath() + "\\Villager-deny1.wav";
+			File sound = new File(path);
+			try {
+				AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+				Clip c = AudioSystem.getClip();
+				c.open(ais); // Clip opens AudioInputStream
+				c.start(); // Start playing audio
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			String path = new File("").getAbsolutePath() + "\\Villager-trade1.wav";
+			File sound = new File(path);
+			try {
+				AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+				Clip c = AudioSystem.getClip();
+				c.open(ais); // Clip opens AudioInputStream
+				c.start(); // Start playing audio
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@FXML
 	void handleRefresh() throws SQLException {
 		tableRfsh();
 	}
-	
+
 	@FXML
 	void tableRfsh() throws SQLException {
 		tblMain.getItems().setAll(Book.getAll());
