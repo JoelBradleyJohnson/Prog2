@@ -73,14 +73,14 @@
       <TextField fx:id="txtWeight" layoutX="165.0" layoutY="379.0" prefHeight="25.0" prefWidth="187.0" />
       <ChoiceBox fx:id="choiceGender" layoutX="165.0" layoutY="276.0" prefHeight="25.0" prefWidth="187.0" />
       <Button fx:id="btnLoad" layoutX="372.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Load Student" />
-      <Button fx:id="btnSave" layoutX="372.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Load Student" />
-      <Button fx:id="btnDelete" layoutX="372.0" layoutY="379.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Load Student" />
-      <RadioButton fx:id="rbtnAerobic" layoutX="218.0" layoutY="453.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="134.0" text="Aerobic">
+      <Button fx:id="btnSave" layoutX="372.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Save Student" />
+      <Button fx:id="btnDelete" layoutX="372.0" layoutY="379.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Delete Student" />
+      <RadioButton fx:id="rbtnAerobic" disable="true" layoutX="218.0" layoutY="453.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="134.0" text="Aerobic">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbtnStrength" layoutX="352.0" layoutY="453.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="134.0" text="Strength">
+      <RadioButton fx:id="rbtnStrength" disable="true" layoutX="352.0" layoutY="453.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="134.0" text="Strength">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
@@ -126,13 +126,18 @@
           </Tab>
         </tabs>
       </TabPane>
-      <DatePicker fx:id="dpDateBox" layoutX="165.0" layoutY="504.0" prefHeight="28.0" prefWidth="187.0" />
-      <TextField layoutX="165.0" layoutY="543.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField layoutX="165.0" layoutY="577.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField layoutX="165.0" layoutY="611.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField layoutX="165.0" layoutY="644.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField layoutX="165.0" layoutY="680.0" prefHeight="25.0" prefWidth="187.0" />
-      <Button fx:id="btnAddExercise" layoutX="372.0" layoutY="543.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Add Exercise" />
-      <Button fx:id="btnRemoveExercise" layoutX="372.0" layoutY="611.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Remove Exercise" />
+      <DatePicker fx:id="dpDateBox" disable="true" layoutX="165.0" layoutY="504.0" prefHeight="28.0" prefWidth="187.0" />
+      <TextField disable="true" layoutX="165.0" layoutY="543.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField disable="true" layoutX="165.0" layoutY="577.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField disable="true" layoutX="165.0" layoutY="611.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField disable="true" layoutX="165.0" layoutY="644.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField disable="true" layoutX="165.0" layoutY="680.0" prefHeight="25.0" prefWidth="187.0" />
+      <Button fx:id="btnAddExercise" disable="true" layoutX="372.0" layoutY="543.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Add Exercise" wrapText="true" />
+      <Button fx:id="btnRemoveExercise" disable="true" layoutX="372.0" layoutY="611.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Remove Exercise" />
+      <Label alignment="TOP_CENTER" layoutX="548.0" layoutY="110.0" prefHeight="317.0" prefWidth="861.0" text="Hello user and welcome to the thunderdome. This program is designed to track fitness things. Before you add or remove exercises, please either load your student account or create an account." textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Arial Black" size="34.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

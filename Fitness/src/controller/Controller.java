@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ExerciseAerobic;
 import model.ExerciseStrength;
+import model.Gender;
 
 public class Controller {
 
@@ -20,7 +21,7 @@ public class Controller {
 	private TextField txtStudent, txtFirst, txtLast, txtBirthdate, txtHeight, txtWeight;
 	
 	@FXML
-	private ChoiceBox choiceGender;
+	private ChoiceBox<Gender> choiceGender;
 	
 	@FXML
 	private Button btnLoad, btnSave, btnDelete, btnAddExercise, btnRemoveExercise;
@@ -45,6 +46,7 @@ public class Controller {
 
 	@FXML
 	private void initialize() throws SQLException {
-
+		//Populate Gender Choice box
+		choiceGender.getItems().setAll(Gender.values());
 	}
 }
