@@ -15,7 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
 import model.ExerciseAerobic;
 import model.ExerciseStrength;
 import model.Gender;
@@ -79,23 +78,21 @@ public class Controller {
 	}
 
 	@FXML
-	void handleSave(ActionEvent event) {
-		try {
-			myPerson.setStudentID(Integer.parseInt(txtStudent.getText()));
-			myPerson.setFirstName(txtFirst.getText());
-			myPerson.setLastName(txtLast.getText());
-			myPerson.setHeight(Double.parseDouble(txtHeight.getText()));
-			myPerson.setWeight(Double.parseDouble(txtWeight.getText()));
-			myPerson.setBirthdate(dpBirthdate.getValue());
-			myPerson.setGender(choiceGender.getSelectionModel().getSelectedItem());
-			myPerson.save();
-		} catch (NumberFormatException e) {
-			errorFormat();
-		} catch (SQLException e) {
-			errorNotFound();
-		} catch (RuntimeException e) {
-			errorNotFound();
-		}
+	void handleSave(ActionEvent event) throws SQLException {
+		myPerson.setStudentID(Integer.parseInt(txtStudent.getText()));
+		myPerson.setFirstName(txtFirst.getText());
+		myPerson.setLastName(txtLast.getText());
+		myPerson.setHeight(Double.parseDouble(txtHeight.getText()));
+		myPerson.setWeight(Double.parseDouble(txtWeight.getText()));
+		myPerson.setBirthdate(dpBirthdate.getValue());
+		myPerson.setGender(choiceGender.getSelectionModel().getSelectedItem());
+		myPerson.save();
+		
+		Alert myAlert = new Alert(AlertType.INFORMATION);
+		myAlert.setTitle("Student Saved");
+		myAlert.setHeaderText("You Have Saved " + myPerson.getStudentID());
+		myAlert.setContentText("You have saved the life of " + myPerson.getFirstName() + myPerson.getLastName());
+
 	}
 
 	@FXML
@@ -103,8 +100,8 @@ public class Controller {
 		try {
 			Alert empty = new Alert(AlertType.CONFIRMATION);
 			empty.setTitle("Are You Sure?");
-			empty.setHeaderText("Kill " +txtStudent.getText());
-			empty.setContentText("You are about to do something very grave to student " +txtStudent.getText());
+			empty.setHeaderText("Kill " + txtStudent.getText());
+			empty.setContentText("You are about to do something very grave to student " + txtStudent.getText());
 			Optional<ButtonType> answer = empty.showAndWait();
 			if (answer.isPresent() && answer.get().equals(ButtonType.OK)) {
 				myPerson.setStudentID(Integer.parseInt(txtStudent.getText()));
@@ -116,7 +113,7 @@ public class Controller {
 				cancelled.setContentText("COWARD!");
 				cancelled.showAndWait();
 			}
-			
+
 		} catch (NumberFormatException e) {
 			errorFormat();
 		} catch (SQLException e) {

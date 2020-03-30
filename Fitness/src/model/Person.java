@@ -67,10 +67,10 @@ public class Person {
 		params.add(new Parameter<String>(lastName));
 		params.add(new Parameter<Double>(height));
 		params.add(new Parameter<Double>(weight));
-		params.add(new Parameter<Gender>(gender));
+		params.add(new Parameter<String>(gender.toString()));
 		params.add(new Parameter<LocalDate>(birthdate));
 
-		db.getResultSet("Exercise.usp_SavePerson");
+		db.getResultSet("Exercise.usp_SavePerson", params);
 	}
 
 	public void delete() throws SQLException {
