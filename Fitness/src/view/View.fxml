@@ -9,13 +9,14 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="942.0" prefWidth="1441.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <children>
-      <Label alignment="CENTER" layoutX="477.0" layoutY="26.0" prefHeight="75.0" prefWidth="488.0" text="FITNESS TRACKER" textAlignment="CENTER" wrapText="true">
+      <Label alignment="CENTER" layoutX="48.0" layoutY="31.0" prefHeight="75.0" prefWidth="488.0" text="FITNESS TRACKER" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Arial Black" size="41.0" />
          </font>
@@ -25,7 +26,7 @@
             <Font name="Arial Black" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="24.0" layoutY="406.0" prefHeight="46.0" prefWidth="227.0" text="Exercises" wrapText="true">
+      <Label layoutX="607.0" layoutY="128.0" prefHeight="46.0" prefWidth="227.0" text="Exercise" wrapText="true">
          <font>
             <Font name="Arial Black" size="30.0" />
          </font>
@@ -68,28 +69,21 @@
       <TextField fx:id="txtStudent" layoutX="165.0" layoutY="175.0" prefHeight="25.0" prefWidth="187.0" />
       <TextField fx:id="txtFirst" layoutX="165.0" layoutY="209.0" prefHeight="25.0" prefWidth="187.0" />
       <TextField fx:id="txtLast" layoutX="165.0" layoutY="243.0" prefHeight="25.0" prefWidth="187.0" />
+      <ChoiceBox fx:id="choiceGender" layoutX="165.0" layoutY="276.0" prefHeight="25.0" prefWidth="187.0" />
+      <DatePicker fx:id="dpBirthdate" layoutX="165.0" layoutY="309.0" prefHeight="28.0" prefWidth="187.0" />
       <TextField fx:id="txtHeight" layoutX="165.0" layoutY="344.0" prefHeight="25.0" prefWidth="187.0" />
       <TextField fx:id="txtWeight" layoutX="165.0" layoutY="379.0" prefHeight="25.0" prefWidth="187.0" />
-      <ChoiceBox fx:id="choiceGender" layoutX="165.0" layoutY="276.0" prefHeight="25.0" prefWidth="187.0" />
-      <Button layoutX="372.0" layoutY="175.0" mnemonicParsing="false" onAction="#handleLoad" prefHeight="25.0" prefWidth="152.0" text="Load Student" />
-      <Button layoutX="372.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="152.0" text="Save Student" />
-      <Button layoutX="372.0" layoutY="379.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="152.0" text="Delete Student" />
-      <RadioButton fx:id="rbtnAerobic" disable="true" layoutX="218.0" layoutY="453.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="134.0" text="Aerobic">
+      <RadioButton fx:id="rbtnAerobic" layoutX="797.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleAerobic" prefHeight="28.0" prefWidth="134.0" text="Aerobic">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbtnStrength" disable="true" layoutX="352.0" layoutY="453.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="134.0" text="Strength">
+      <RadioButton fx:id="rbtnStrength" layoutX="954.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleStrength" prefHeight="28.0" prefWidth="134.0" text="Strength">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </RadioButton>
-      <Label layoutX="38.0" layoutY="453.0" prefHeight="27.0" prefWidth="152.0" text="Exercise Type" wrapText="true">
-         <font>
-            <Font name="Arial Bold" size="21.0" />
-         </font>
-      </Label>
-      <TabPane layoutX="548.0" layoutY="439.0" prefHeight="495.0" prefWidth="886.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="544.0" layoutY="430.0" prefHeight="495.0" prefWidth="890.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Aerobic">
             <content>
@@ -98,8 +92,8 @@
                         <TableView fx:id="tblAerobic" layoutY="2.0" prefHeight="462.0" prefWidth="886.0">
                           <columns>
                             <TableColumn fx:id="clmDateA" prefWidth="126.0" text="Date" />
-                            <TableColumn fx:id="clmNameA" prefWidth="175.0" text="Name" />
-                              <TableColumn fx:id="clmMHR" prefWidth="197.0" text="Max HR" />
+                            <TableColumn fx:id="clmNameA" prefWidth="205.0" text="Name" />
+                              <TableColumn fx:id="clmMHR" prefWidth="167.0" text="Max HR" />
                               <TableColumn fx:id="clmAHR" prefWidth="197.0" text="Average HR" />
                               <TableColumn fx:id="clmDistance" prefWidth="186.0" text="Distance" />
                           </columns>
@@ -114,9 +108,9 @@
                         <TableView fx:id="tblStrength" layoutY="4.0" prefHeight="458.0" prefWidth="886.0">
                           <columns>
                             <TableColumn fx:id="clmDateS" prefWidth="127.0" text="Date" />
-                            <TableColumn fx:id="clmNameS" prefWidth="251.0" text="Name" />
-                              <TableColumn fx:id="clmSets" prefWidth="169.0" text="Sets" />
-                              <TableColumn fx:id="clmReps" prefWidth="173.0" text="Reps" />
+                            <TableColumn fx:id="clmNameS" prefWidth="211.0" text="Name" />
+                              <TableColumn fx:id="clmSets" prefWidth="202.0" text="Sets" />
+                              <TableColumn fx:id="clmReps" prefWidth="180.0" text="Reps" />
                               <TableColumn fx:id="clmWeight" prefWidth="164.0" text="Weight Lifted" />
                           </columns>
                         </TableView>
@@ -125,19 +119,45 @@
           </Tab>
         </tabs>
       </TabPane>
-      <DatePicker fx:id="dpExerciseDate" disable="true" layoutX="165.0" layoutY="504.0" prefHeight="28.0" prefWidth="187.0" />
-      <TextField disable="true" layoutX="165.0" layoutY="543.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField disable="true" layoutX="165.0" layoutY="577.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField disable="true" layoutX="165.0" layoutY="611.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField disable="true" layoutX="165.0" layoutY="644.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField disable="true" layoutX="165.0" layoutY="680.0" prefHeight="25.0" prefWidth="187.0" />
-      <Button fx:id="btnAddExercise" disable="true" layoutX="372.0" layoutY="543.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Add Exercise" wrapText="true" />
-      <Button fx:id="btnRemoveExercise" disable="true" layoutX="372.0" layoutY="611.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Remove Exercise" />
-      <Label alignment="TOP_CENTER" layoutX="548.0" layoutY="110.0" prefHeight="317.0" prefWidth="861.0" text="Hello user and welcome to the thunderdome. This program is designed to track fitness things. Before you add or remove exercises, please either load your student account or create an account." textAlignment="CENTER" wrapText="true">
+      <DatePicker fx:id="dpExerciseDate" disable="true" layoutX="755.0" layoutY="175.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField fx:id="txtName" disable="true" layoutX="755.0" layoutY="209.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField fx:id="txtMHRSets" disable="true" layoutX="755.0" layoutY="243.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField fx:id="txtAHRReps" disable="true" layoutX="755.0" layoutY="276.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField fx:id="txtDistanceWeight" disable="true" layoutX="755.0" layoutY="311.0" prefHeight="25.0" prefWidth="187.0" />
+      <Button fx:id="btnAddExercise" disable="true" layoutX="962.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Add Exercise" wrapText="true" />
+      <Button fx:id="btnRemoveExercise" disable="true" layoutX="945.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Remove Exercise" />
+      <Button layoutX="372.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleLoad" prefHeight="0.0" prefWidth="134.0" text="Load Student">
          <font>
-            <Font name="Arial Black" size="34.0" />
+            <Font name="System Bold" size="15.0" />
+         </font></Button>
+      <Button layoutX="372.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: lightblue;" text="Save Student">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="372.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: red;" text="Delete Student" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font></Button>
+      <Button layoutX="372.0" layoutY="376.0" mnemonicParsing="false" onAction="#handleClearStudent" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: white; -fx-border-color: black;" text="Clear">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="24.0" layoutY="448.0" prefHeight="46.0" prefWidth="227.0" text="Information" wrapText="true">
+         <font>
+            <Font name="Arial Black" size="30.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dpBirthdate" layoutX="165.0" layoutY="309.0" prefHeight="28.0" prefWidth="187.0" />
+      <TextArea fx:id="txtInfo" editable="false" layoutX="38.0" layoutY="521.0" prefHeight="75.0" prefWidth="488.0" wrapText="true">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextArea>
+      <Label layoutX="38.0" layoutY="494.0" prefHeight="27.0" prefWidth="110.0" text="Status" wrapText="true">
+         <font>
+            <Font name="Arial Bold" size="21.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

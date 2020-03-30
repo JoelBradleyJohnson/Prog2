@@ -45,7 +45,6 @@ public class Person {
 
 		ResultSet rsPerson = db.getResultSet("usp_GetPerson", params);
 		
-		if (rsPerson.next()) {
 			this.studentID = rsPerson.getInt("StudentID");
 			this.firstName = rsPerson.getString("FirstName");
 			this.lastName = rsPerson.getString("LastName");
@@ -53,9 +52,7 @@ public class Person {
 			this.weight = rsPerson.getDouble("Weight");
 			this.gender = Gender.valueOf(rsPerson.getString("Gender").toUpperCase());
 			this.birthdate = rsPerson.getDate("Birthdate").toLocalDate();
-		} else {
-			throw new IllegalArgumentException("That person was not found");
-		}
+	
 	}
 
 	public void save() throws SQLException {

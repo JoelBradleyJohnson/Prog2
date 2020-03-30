@@ -13,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import model.ExerciseAerobic;
@@ -23,7 +24,11 @@ import model.Person;
 public class Controller {
 
 	@FXML
-	private TextField txtStudent, txtFirst, txtLast, txtBirthdate, txtHeight, txtWeight;
+	private TextField txtStudent, txtFirst, txtLast, txtBirthdate, txtHeight, txtWeight, txtName, txtMHRSets,
+			txtAHRReps, txtDistanceWeight;
+
+	@FXML
+	private TextArea txtInfo;
 
 	@FXML
 	private ChoiceBox<Gender> choiceGender;
@@ -49,6 +54,7 @@ public class Controller {
 	@FXML
 	private TableColumn<String, ExerciseStrength> clmNameS, clmDateS, clmReps, clmSets, clmWeight;
 
+	// Global Instance of Person
 	Person myPerson = new Person();
 
 	@FXML
@@ -68,13 +74,22 @@ public class Controller {
 			txtWeight.setText(String.valueOf(myPerson.getWeight()));
 			dpBirthdate.setValue(myPerson.getBirthdate());
 			choiceGender.getSelectionModel().select(myPerson.getGender());
-		} catch (NumberFormatException e) {
-			errorFormat();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			Alert empty = new Alert(AlertType.ERROR);
+			empty.setTitle("Error");
+			empty.setHeaderText("Student Not Found");
+			empty.setContentText("You are searching for a student that cannot (or shouldn't) be found.");
+			empty.showAndWait();
 		} catch (RuntimeException e) {
-			e.printStackTrace();
+			System.out.println("That Didn't work");
+		} catch (SQLException e) {
+			Alert empty = new Alert(AlertType.ERROR);
+			empty.setTitle("Error");
+			empty.setHeaderText("Student Not Found");
+			empty.setContentText("You are searching for a student that cannot (or shouldn't) be found.");
+			empty.showAndWait();
 		}
+
 	}
 
 	@FXML
@@ -87,7 +102,7 @@ public class Controller {
 		myPerson.setBirthdate(dpBirthdate.getValue());
 		myPerson.setGender(choiceGender.getSelectionModel().getSelectedItem());
 		myPerson.save();
-		
+
 		Alert myAlert = new Alert(AlertType.INFORMATION);
 		myAlert.setTitle("Student Saved");
 		myAlert.setHeaderText("You Have Saved " + myPerson.getStudentID());
@@ -106,6 +121,7 @@ public class Controller {
 			if (answer.isPresent() && answer.get().equals(ButtonType.OK)) {
 				myPerson.setStudentID(Integer.parseInt(txtStudent.getText()));
 				myPerson.delete();
+				clearStudent();
 			} else {
 				Alert cancelled = new Alert(AlertType.INFORMATION);
 				cancelled.setTitle("Delete Cancelled");
@@ -119,8 +135,29 @@ public class Controller {
 		} catch (SQLException e) {
 			errorNotFound();
 		} catch (RuntimeException e) {
-			errorNotFound();
+			Alert empty = new Alert(AlertType.ERROR);
+			empty.setTitle("Error");
+			empty.setHeaderText("Item Not Found");
+			empty.setContentText("You are searching for something that cannot (or shouldn't) be found.");
+			empty.showAndWait();
 		}
+	}
+
+	@FXML
+	void handleAerobic(ActionEvent event) {
+		rbtnStrength.setSelected(false);
+		enableExercise();
+	}
+
+	@FXML
+	void handleStrength(ActionEvent event) {
+		rbtnAerobic.setSelected(false);
+		enableExercise();
+	}
+
+	@FXML
+	void handleClearStudent(ActionEvent event) {
+		clearStudent();
 	}
 
 	@FXML
@@ -139,5 +176,25 @@ public class Controller {
 		empty.setHeaderText("Item Not Found");
 		empty.setContentText("You are searching for something that cannot (or shouldn't) be found.");
 		empty.showAndWait();
+	}
+
+	@FXML
+	private void enableExercise() {
+		txtName.setDisable(false);
+		dpExerciseDate.setDisable(false);
+		txtMHRSets.setDisable(false);
+		txtAHRReps.setDisable(false);
+		txtDistanceWeight.setDisable(false);
+	}
+
+	@FXML
+	private void clearStudent() {
+		txtStudent.clear();
+		txtFirst.clear();
+		txtLast.clear();
+		txtHeight.clear();
+		txtWeight.clear();
+		dpBirthdate.setValue(null);
+		choiceGender.getSelectionModel().clearSelection();
 	}
 }
