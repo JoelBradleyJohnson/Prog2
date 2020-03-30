@@ -66,14 +66,14 @@ public class Controller {
 			txtLast.setText((myPerson.getLastName()));
 			txtHeight.setText(String.valueOf(myPerson.getHeight()));
 			txtWeight.setText(String.valueOf(myPerson.getWeight()));
-			txtBirthdate.setText(String.valueOf(myPerson.getBirthdate()));
+			dpBirthdate.setValue(myPerson.getBirthdate());
 			choiceGender.getSelectionModel().select(myPerson.getGender());
 		} catch (NumberFormatException e) {
 			errorFormat();
 		} catch (SQLException e) {
-			errorNotFound();
+			e.printStackTrace();
 		} catch (RuntimeException e) {
-			errorNotFound();
+			e.printStackTrace();
 		}
 	}
 
