@@ -37,29 +37,49 @@ public class Person {
 
 	}
 
-	public void load(int pStudentID) {
+	public void load(int pStudentID) throws SQLException {
+		Database db = new Database("db.cberkstresser.name", "Exercise");
+		List<Parameter<?>> params = new ArrayList<>();
 
+		params.add(new Parameter<Integer>(pStudentID));
+
+		ResultSet rsPerson = db.getResultSet("usp_GetPerson", params);
+		
+		if (rsPerson.next()) {
+			this.studentID = rsPerson.getInt("StudentID");
+			this.firstName = rsPerson.getString("FirstName");
+			this.lastName = rsPerson.getString("LastName");
+			this.height = rsPerson.getDouble("Height");
+			this.weight = rsPerson.getDouble("Weight");
+			this.gender = Gender.valueOf(rsPerson.getString("Gender").toUpperCase());
+			this.birthdate = rsPerson.getDate("Birthdate").toLocalDate();
+		} else {
+			throw new IllegalArgumentException("That person was not found");
+		}
 	}
 
 	public void save() throws SQLException {
 		Database db = new Database("db.cberkstresser.name", "Exercise");
-			List<Parameter<?>> params = new ArrayList<>();
-			
-			params.add(new Parameter<Integer>(studentID));
-			params.add(new Parameter<String>(firstName));
-			params.add(new Parameter<String>(lastName));
-			params.add(new Parameter<Double>(height));
-			params.add(new Parameter<Double>(weight));
-			params.add(new Parameter<Gender>(gender));
-			params.add(new Parameter<LocalDate>(birthdate));
-			
-			ResultSet rs = db.getResultSet("Exercise.usp_SavePerson");
+		List<Parameter<?>> params = new ArrayList<>();
+
+		params.add(new Parameter<Integer>(studentID));
+		params.add(new Parameter<String>(firstName));
+		params.add(new Parameter<String>(lastName));
+		params.add(new Parameter<Double>(height));
+		params.add(new Parameter<Double>(weight));
+		params.add(new Parameter<Gender>(gender));
+		params.add(new Parameter<LocalDate>(birthdate));
+
+		db.getResultSet("Exercise.usp_SavePerson");
 	}
 
-	public void delete() {
-
+	public void delete() throws SQLException {
+		Database db = new Database("db.cberkstresser.name", "Exercise");
+		List<Parameter<?>> params = new ArrayList<>();
+		params.add(new Parameter<Integer>(studentID));
+		db.executeSql("usp_DeletePerson", params);
 	}
-	
+
 	/**
 	 * @return the studentID
 	 */
@@ -101,7 +121,7 @@ public class Person {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	/**
 	 * @return the lastName
 	 */

@@ -68,13 +68,12 @@
       <TextField fx:id="txtStudent" layoutX="165.0" layoutY="175.0" prefHeight="25.0" prefWidth="187.0" />
       <TextField fx:id="txtFirst" layoutX="165.0" layoutY="209.0" prefHeight="25.0" prefWidth="187.0" />
       <TextField fx:id="txtLast" layoutX="165.0" layoutY="243.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField fx:id="txtBirthdate" layoutX="165.0" layoutY="310.0" prefHeight="25.0" prefWidth="187.0" />
       <TextField fx:id="txtHeight" layoutX="165.0" layoutY="344.0" prefHeight="25.0" prefWidth="187.0" />
       <TextField fx:id="txtWeight" layoutX="165.0" layoutY="379.0" prefHeight="25.0" prefWidth="187.0" />
       <ChoiceBox fx:id="choiceGender" layoutX="165.0" layoutY="276.0" prefHeight="25.0" prefWidth="187.0" />
-      <Button fx:id="btnLoad" layoutX="372.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Load Student" />
-      <Button fx:id="btnSave" layoutX="372.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Save Student" />
-      <Button fx:id="btnDelete" layoutX="372.0" layoutY="379.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Delete Student" />
+      <Button layoutX="372.0" layoutY="175.0" mnemonicParsing="false" onAction="#handleLoad" prefHeight="25.0" prefWidth="152.0" text="Load Student" />
+      <Button layoutX="372.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="152.0" text="Save Student" />
+      <Button layoutX="372.0" layoutY="379.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="152.0" text="Delete Student" />
       <RadioButton fx:id="rbtnAerobic" disable="true" layoutX="218.0" layoutY="453.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="134.0" text="Aerobic">
          <font>
             <Font name="Arial Bold" size="21.0" />
@@ -126,7 +125,7 @@
           </Tab>
         </tabs>
       </TabPane>
-      <DatePicker fx:id="dpDateBox" disable="true" layoutX="165.0" layoutY="504.0" prefHeight="28.0" prefWidth="187.0" />
+      <DatePicker fx:id="dpExerciseDate" disable="true" layoutX="165.0" layoutY="504.0" prefHeight="28.0" prefWidth="187.0" />
       <TextField disable="true" layoutX="165.0" layoutY="543.0" prefHeight="25.0" prefWidth="187.0" />
       <TextField disable="true" layoutX="165.0" layoutY="577.0" prefHeight="25.0" prefWidth="187.0" />
       <TextField disable="true" layoutX="165.0" layoutY="611.0" prefHeight="25.0" prefWidth="187.0" />
@@ -139,5 +138,6 @@
             <Font name="Arial Black" size="34.0" />
          </font>
       </Label>
+      <DatePicker fx:id="dpBirthdate" layoutX="165.0" layoutY="309.0" prefHeight="28.0" prefWidth="187.0" />
    </children>
 </AnchorPane>
