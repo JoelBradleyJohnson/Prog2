@@ -70,7 +70,8 @@ public class ExerciseStrength extends Exercise {
 		params.add(new Parameter<LocalDate>(exerciseDate));
 		params.add(new Parameter<String>(exerciseName));
 
-		db.executeSql("Exercise.usp_DeleteExerciseStrength", params);
+		db.executeSql("usp_DeleteExerciseStrength", params);
+		System.out.println("Strength Deleted");
 	}
 
 	/**

@@ -54,10 +54,9 @@ public class Person {
 			this.weight = rsPerson.getDouble("Weight");
 			this.gender = Gender.valueOf(rsPerson.getString("Gender").toUpperCase());
 			this.birthdate = rsPerson.getDate("Birthdate").toLocalDate();
-
-			exercises.addAll(ExerciseAerobic.getAllByPerson(studentID));
-			exercises.addAll(ExerciseStrength.getAllByPerson(studentID));
 		}
+		exercises.addAll(ExerciseAerobic.getAllByPerson(studentID));
+		exercises.addAll(ExerciseStrength.getAllByPerson(studentID));
 	}
 
 	public void save() throws SQLException {

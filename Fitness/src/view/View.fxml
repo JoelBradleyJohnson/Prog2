@@ -89,7 +89,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tblAerobic" layoutY="2.0" onMouseClicked="#tblAerobicClicked" prefHeight="462.0" prefWidth="886.0">
+                        <TableView fx:id="tblAerobic" disable="true" layoutX="-4.0" layoutY="2.0" onMouseClicked="#tblAerobicClicked" prefHeight="462.0" prefWidth="890.0">
                           <columns>
                               <TableColumn fx:id="clmSIDA" prefWidth="84.0" text="Student ID" />
                             <TableColumn fx:id="clmDateA" prefWidth="126.0" text="Date" />
@@ -97,7 +97,7 @@
                               <TableColumn fx:id="clmEXSA" prefWidth="110.0" text="Exercise Seconds" />
                               <TableColumn fx:id="clmMHR" prefWidth="109.0" text="Max HR" />
                               <TableColumn fx:id="clmAHR" prefWidth="102.0" text="Average HR" />
-                              <TableColumn fx:id="clmDistance" prefWidth="137.0" text="Distance" />
+                              <TableColumn fx:id="clmDistance" prefWidth="145.0" text="Distance" />
                           </columns>
                         </TableView>
                      </children></AnchorPane>
@@ -107,7 +107,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tblStrength" layoutY="4.0" onMouseClicked="#tblStrengthClicked" prefHeight="458.0" prefWidth="886.0">
+                        <TableView fx:id="tblStrength" disable="true" layoutX="-4.0" layoutY="4.0" onMouseClicked="#tblStrengthClicked" prefHeight="458.0" prefWidth="890.0">
                           <columns>
                               <TableColumn fx:id="clmSIDS" prefWidth="75.0" text="Student ID" />
                             <TableColumn fx:id="clmDateS" prefWidth="127.0" text="Date" />
@@ -115,7 +115,7 @@
                               <TableColumn fx:id="clmEXSS" prefWidth="121.0" text="Exercise Seconds" />
                               <TableColumn fx:id="clmSets" prefWidth="107.0" text="Sets" />
                               <TableColumn fx:id="clmReps" prefWidth="107.0" text="Reps" />
-                              <TableColumn fx:id="clmWeight" prefWidth="127.0" text="Weight Lifted" />
+                              <TableColumn fx:id="clmWeight" prefWidth="131.0" text="Weight Lifted" />
                           </columns>
                         </TableView>
                      </children></AnchorPane>

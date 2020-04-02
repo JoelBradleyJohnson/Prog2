@@ -58,7 +58,7 @@ public class ExerciseAerobic extends Exercise {
 		params.add(new Parameter<Integer>(maxHeartRate));
 		params.add(new Parameter<Integer>(averageHeartRate));
 		params.add(new Parameter<Double>(distance));
-		db.getResultSet("Exercise.usp_SaveExerciseAerobic", params);
+		db.getResultSet("usp_SaveExerciseAerobic", params);
 
 	}
 
@@ -71,7 +71,8 @@ public class ExerciseAerobic extends Exercise {
 		params.add(new Parameter<LocalDate>(exerciseDate));
 		params.add(new Parameter<String>(exerciseName));
 
-		db.executeSql("Exercise.usp_DeleteExerciseAerobic", params);
+		db.executeSql("usp_DeleteExerciseAerobic", params);
+		System.out.println("Aerobic Deleted");
 	}
 
 	/**

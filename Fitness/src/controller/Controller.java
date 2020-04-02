@@ -149,8 +149,8 @@ public class Controller {
 			myAerobic.setAverageHeartRate(Integer.parseInt(txtAHRReps.getText()));
 			myAerobic.setDistance(Double.parseDouble(txtDistanceWeight.getText()));
 			myAerobic.save();
-
 		}
+		loadTables();
 	}
 	
 	@FXML
@@ -166,6 +166,7 @@ public class Controller {
 			myAerobic.setExerciseName(txtName.getText());
 			myAerobic.delete();
 		}
+		loadTables();
 	}
 
 	@FXML
@@ -182,6 +183,7 @@ public class Controller {
 			txtInfo.clear();
 			btnDelete.setDisable(false);
 			loadTables();
+			txtInfo.setText("Student " + myPerson.getStudentID() + " loaded.");
 		} catch (IllegalArgumentException e) {
 			txtInfo.setText("Student " + txtStudent.getText() + " could not be found.");
 		} catch (RuntimeException e) {
@@ -190,7 +192,6 @@ public class Controller {
 			txtInfo.setText("Student " + txtStudent.getText() + " could not be found.");
 			e.printStackTrace();
 		}
-
 	}
 
 	@FXML
@@ -238,6 +239,8 @@ public class Controller {
 
 	@FXML
 	void handleAerobic(ActionEvent event) {
+		tblAerobic.setDisable(false);
+		tblStrength.setDisable(true);
 		rbtnStrength.setSelected(false);
 		enableExercise();
 		labelSets.setVisible(false);
@@ -250,6 +253,8 @@ public class Controller {
 
 	@FXML
 	void handleStrength(ActionEvent event) {
+		tblAerobic.setDisable(true);
+		tblStrength.setDisable(false);
 		rbtnAerobic.setSelected(false);
 		enableExercise();
 		labelMHR.setVisible(false);
