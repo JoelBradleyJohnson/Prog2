@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import db.Database;
 import db.Parameter;
@@ -13,7 +14,7 @@ public class Person {
 
 	private int studentID;
 
-	private List<Exercise> exercises;
+	private List<Exercise> exercises = new ArrayList<>();
 
 	private String firstName, lastName;
 
@@ -30,11 +31,11 @@ public class Person {
 	}
 
 	public void addExercise(Exercise pExercise) {
-
+		exercises.add(pExercise);
 	}
 
 	public void removeExcise(int pIndexToRemove) {
-
+		exercises.remove(pIndexToRemove);
 	}
 
 	public void load(int pStudentID) throws SQLException {
@@ -44,7 +45,8 @@ public class Person {
 		params.add(new Parameter<Integer>(pStudentID));
 
 		ResultSet rsPerson = db.getResultSet("usp_GetPerson", params);
-		
+
+		while (rsPerson.next()) {
 			this.studentID = rsPerson.getInt("StudentID");
 			this.firstName = rsPerson.getString("FirstName");
 			this.lastName = rsPerson.getString("LastName");
@@ -52,7 +54,10 @@ public class Person {
 			this.weight = rsPerson.getDouble("Weight");
 			this.gender = Gender.valueOf(rsPerson.getString("Gender").toUpperCase());
 			this.birthdate = rsPerson.getDate("Birthdate").toLocalDate();
-	
+
+			exercises.addAll(ExerciseAerobic.getAllByPerson(studentID));
+			exercises.addAll(ExerciseStrength.getAllByPerson(studentID));
+		}
 	}
 
 	public void save() throws SQLException {
@@ -75,6 +80,20 @@ public class Person {
 		List<Parameter<?>> params = new ArrayList<>();
 		params.add(new Parameter<Integer>(studentID));
 		db.executeSql("usp_DeletePerson", params);
+	}
+
+	public void clearAllExercises() {
+		exercises.clear();
+	}
+
+	public List<ExerciseStrength> getStrengthExercises() {
+		return exercises.stream().filter(x -> x instanceof ExerciseStrength).map(x -> (ExerciseStrength) x)
+				.collect(Collectors.toList());
+	}
+
+	public List<ExerciseAerobic> getAerobicsExercises() {
+		return exercises.stream().filter(x -> x instanceof ExerciseAerobic).map(x -> (ExerciseAerobic) x)
+				.collect(Collectors.toList());
 	}
 
 	/**

@@ -1,6 +1,14 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import db.Database;
+import db.Parameter;
 
 public class ExerciseAerobic extends Exercise {
 
@@ -11,21 +19,59 @@ public class ExerciseAerobic extends Exercise {
 	private double distance;
 
 	@Override
-	void load(int pStudentID, LocalDate pExerciseDate, String pExerciseName) {
+	public void load(int pStudentID, LocalDate pExerciseDate, String pExerciseName) {
 		// TODO Auto-generated method stub
+
+	}
+	
+	public static List<ExerciseAerobic> getAllByPerson(int pStudentID) throws SQLException {
+		Database db = new Database("db.cberkstresser.name", "Exercise");
+		List<Parameter<?>> params = new ArrayList <>();
+		
+		List<ExerciseAerobic> returnValues = new ArrayList<>();
+		params.add(new Parameter<Integer>(pStudentID));
+		ResultSet rsExercises = db.getResultSet("usp_GetAerobicExercisesByPerson", params);
+		while (rsExercises.next()) {
+			ExerciseAerobic e = new ExerciseAerobic();
+			e.setStudentID(rsExercises.getInt("StudentID"));
+			e.setExerciseDate(rsExercises.getDate("ExerciseDate").toLocalDate());
+			e.setExerciseName(rsExercises.getString("ExerciseName"));
+			e.setExerciseDuration(Duration.ofSeconds(rsExercises.getInt("ExerciseSeconds")));
+			e.setMaxHeartRate(rsExercises.getInt("MaxHeartRate"));
+            e.setAverageHeartRate(rsExercises.getInt("AverageHeartRate"));
+            e.setDistance(rsExercises.getDouble("Distance"));
+            returnValues.add(e);			
+		}
+		return returnValues;
+		
+	}
+
+	@Override
+	public void save() throws SQLException {
+		Database db = new Database("db.cberkstresser.name", "Exercise");
+		List<Parameter<?>> params = new ArrayList<>();
+
+		params.add(new Parameter<Integer>(studentID));
+		params.add(new Parameter<LocalDate>(exerciseDate));
+		params.add(new Parameter<String>(exerciseName));
+		params.add(new Parameter<Long>(exerciseDuration.getSeconds()));
+		params.add(new Parameter<Integer>(maxHeartRate));
+		params.add(new Parameter<Integer>(averageHeartRate));
+		params.add(new Parameter<Double>(distance));
+		db.getResultSet("Exercise.usp_SaveExerciseAerobic", params);
 
 	}
 
 	@Override
-	void save() {
-		// TODO Auto-generated method stub
+	public void delete() throws SQLException {
+		Database db = new Database("db.cberkstresser.name", "Exercise");
+		List<Parameter<?>> params = new ArrayList<>();
 
-	}
+		params.add(new Parameter<Integer>(studentID));
+		params.add(new Parameter<LocalDate>(exerciseDate));
+		params.add(new Parameter<String>(exerciseName));
 
-	@Override
-	void delete() {
-		// TODO Auto-generated method stub
-
+		db.executeSql("Exercise.usp_DeleteExerciseAerobic", params);
 	}
 
 	/**
@@ -69,5 +115,5 @@ public class ExerciseAerobic extends Exercise {
 	public void setDistance(double distance) {
 		this.distance = distance;
 	}
-
+	
 }

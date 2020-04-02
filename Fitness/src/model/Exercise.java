@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
 
@@ -15,9 +16,9 @@ public abstract class Exercise {
 
 	abstract void load(int pStudentID, LocalDate pExerciseDate, String pExerciseName);
 
-	abstract void save();
+	abstract void save() throws SQLException;
 
-	abstract void delete();
+	abstract void delete() throws SQLException;
 
 	/**
 	 * @return the studentID
@@ -64,8 +65,8 @@ public abstract class Exercise {
 	/**
 	 * @return the exerciseDuration
 	 */
-	public Duration getExerciseDuration() {
-		return exerciseDuration;
+	public long getExerciseDuration() {
+		return exerciseDuration.toSeconds();
 	}
 
 	/**

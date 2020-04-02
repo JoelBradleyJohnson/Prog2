@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.Optional;
 
 import javafx.event.ActionEvent;
@@ -10,12 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.ExerciseAerobic;
 import model.ExerciseStrength;
 import model.Gender;
@@ -23,9 +26,19 @@ import model.Person;
 
 public class Controller {
 
+	// Global Instances
+	private Person myPerson = new Person();
+
+	private ExerciseAerobic myAerobic = new ExerciseAerobic();
+
+	private ExerciseStrength myStrength = new ExerciseStrength();
+
 	@FXML
-	private TextField txtStudent, txtFirst, txtLast, txtBirthdate, txtHeight, txtWeight, txtName, txtMHRSets,
-			txtAHRReps, txtDistanceWeight;
+	private TextField txtStudent, txtFirst, txtLast, txtBirthdate, txtExerciseSeconds, txtHeight, txtWeight, txtName,
+			txtMHRSets, txtAHRReps, txtDistanceWeight;
+
+	@FXML
+	private Label labelMHR, labelAHR, labelDistance, labelSets, labelReps, labelWeightLifted;
 
 	@FXML
 	private TextArea txtInfo;
@@ -34,7 +47,7 @@ public class Controller {
 	private ChoiceBox<Gender> choiceGender;
 
 	@FXML
-	private Button btnAddExercise, btnRemoveExercise;
+	private Button btnDelete, btnAddExercise, btnRemoveExercise;
 
 	@FXML
 	private RadioButton rbtnAerobic, rbtnStrength;
@@ -49,18 +62,110 @@ public class Controller {
 	private TableView<ExerciseStrength> tblStrength;
 
 	@FXML
-	private TableColumn<String, ExerciseAerobic> clmNameA, clmDateA, clmMHR, clmAHR, clmDistance;
+	private TableColumn<Duration, ExerciseAerobic> clmEXSA;
 
 	@FXML
-	private TableColumn<String, ExerciseStrength> clmNameS, clmDateS, clmReps, clmSets, clmWeight;
+	private TableColumn<Duration, ExerciseStrength> clmEXSS;
 
-	// Global Instance of Person
-	Person myPerson = new Person();
+	@FXML
+	private TableColumn<String, ExerciseAerobic> clmSIDA, clmNameA, clmDateA, clmMHR, clmAHR, clmDistance;
+
+	@FXML
+	private TableColumn<String, ExerciseStrength> clmSIDS, clmNameS, clmDateS, clmReps, clmSets, clmWeight;
 
 	@FXML
 	private void initialize() throws SQLException {
 		// Populate Gender Choice box
 		choiceGender.getItems().setAll(Gender.values());
+
+		clmSIDA.setCellValueFactory(new PropertyValueFactory<>("StudentID"));
+		clmDateA.setCellValueFactory(new PropertyValueFactory<>("ExerciseDate"));
+		clmNameA.setCellValueFactory(new PropertyValueFactory<>("ExerciseName"));
+		clmEXSA.setCellValueFactory(new PropertyValueFactory<>("ExerciseDuration"));
+		clmMHR.setCellValueFactory(new PropertyValueFactory<>("MaxHeartRate"));
+		clmAHR.setCellValueFactory(new PropertyValueFactory<>("AverageHeartRate"));
+		clmDistance.setCellValueFactory(new PropertyValueFactory<>("Distance"));
+
+		clmSIDS.setCellValueFactory(new PropertyValueFactory<>("StudentID"));
+		clmDateS.setCellValueFactory(new PropertyValueFactory<>("ExerciseDate"));
+		clmNameS.setCellValueFactory(new PropertyValueFactory<>("ExerciseName"));
+		clmEXSS.setCellValueFactory(new PropertyValueFactory<>("ExerciseDuration"));
+		clmSets.setCellValueFactory(new PropertyValueFactory<>("Sets"));
+		clmReps.setCellValueFactory(new PropertyValueFactory<>("Reps"));
+		clmWeight.setCellValueFactory(new PropertyValueFactory<>("WeightLifted"));
+	}
+
+	@FXML
+	private void tblStrengthClicked() {
+		ExerciseStrength tempPerson = tblStrength.getSelectionModel().getSelectedItem();
+
+		if (tempPerson.getExerciseName() != null) {
+			txtName.setText(tempPerson.getExerciseName());
+		} else {
+			txtName.setText("");
+		}
+		txtExerciseSeconds.setText(String.valueOf(tempPerson.getExerciseDuration()));
+		txtMHRSets.setText(String.valueOf(tempPerson.getSets()));
+		txtAHRReps.setText(String.valueOf(tempPerson.getReps()));
+		dpExerciseDate.setValue(myPerson.getBirthdate());
+		txtDistanceWeight.setText(String.valueOf(tempPerson.getWeightLifted()));
+	}
+
+	@FXML
+	private void tblAerobicClicked() {
+		ExerciseAerobic tempPerson = tblAerobic.getSelectionModel().getSelectedItem();
+
+		if (tempPerson.getExerciseName() != null) {
+			txtName.setText(tempPerson.getExerciseName());
+		} else {
+			txtName.setText("");
+		}
+		txtExerciseSeconds.setText(String.valueOf(tempPerson.getExerciseDuration()));
+		txtMHRSets.setText(String.valueOf(tempPerson.getMaxHeartRate()));
+		txtAHRReps.setText(String.valueOf(tempPerson.getAverageHeartRate()));
+		dpExerciseDate.setValue(myPerson.getBirthdate());
+		txtDistanceWeight.setText(String.valueOf(tempPerson.getDistance()));
+	}
+
+	@FXML
+	void handleAddExercise(ActionEvent event) throws SQLException {
+
+		if (rbtnStrength.isSelected()) {
+			myStrength.setStudentID(Integer.parseInt(txtStudent.getText()));
+			myStrength.setExerciseDate(dpExerciseDate.getValue());
+			myStrength.setExerciseName(txtName.getText());
+			myStrength.setExerciseDuration(Duration.ofSeconds(Long.parseLong(txtExerciseSeconds.getText())));
+			myStrength.setSets(Integer.parseInt(txtMHRSets.getText()));
+			myStrength.setReps(Integer.parseInt(txtAHRReps.getText()));
+			myStrength.setWeightLifted(Double.parseDouble(txtDistanceWeight.getText()));
+			myStrength.save();
+
+		} else if (!rbtnStrength.isSelected()) {
+			myAerobic.setStudentID(Integer.parseInt(txtStudent.getText()));
+			myAerobic.setExerciseDate(dpExerciseDate.getValue());
+			myAerobic.setExerciseName(txtName.getText());
+			myAerobic.setExerciseDuration(Duration.ofSeconds(Long.parseLong(txtExerciseSeconds.getText())));
+			myAerobic.setMaxHeartRate(Integer.parseInt(txtMHRSets.getText()));
+			myAerobic.setAverageHeartRate(Integer.parseInt(txtAHRReps.getText()));
+			myAerobic.setDistance(Double.parseDouble(txtDistanceWeight.getText()));
+			myAerobic.save();
+
+		}
+	}
+	
+	@FXML
+	void handleRemoveExercise(ActionEvent event) throws SQLException {
+		if (rbtnStrength.isSelected()) {
+			myStrength.setStudentID(Integer.parseInt(txtStudent.getText()));
+			myStrength.setExerciseDate(dpExerciseDate.getValue());
+			myStrength.setExerciseName(txtName.getText());
+			myStrength.delete();
+		} else if (!rbtnStrength.isSelected()) {
+			myAerobic.setStudentID(Integer.parseInt(txtStudent.getText()));
+			myAerobic.setExerciseDate(dpExerciseDate.getValue());
+			myAerobic.setExerciseName(txtName.getText());
+			myAerobic.delete();
+		}
 	}
 
 	@FXML
@@ -74,20 +179,16 @@ public class Controller {
 			txtWeight.setText(String.valueOf(myPerson.getWeight()));
 			dpBirthdate.setValue(myPerson.getBirthdate());
 			choiceGender.getSelectionModel().select(myPerson.getGender());
+			txtInfo.clear();
+			btnDelete.setDisable(false);
+			loadTables();
 		} catch (IllegalArgumentException e) {
-			Alert empty = new Alert(AlertType.ERROR);
-			empty.setTitle("Error");
-			empty.setHeaderText("Student Not Found");
-			empty.setContentText("You are searching for a student that cannot (or shouldn't) be found.");
-			empty.showAndWait();
+			txtInfo.setText("Student " + txtStudent.getText() + " could not be found.");
 		} catch (RuntimeException e) {
-			System.out.println("That Didn't work");
+			txtInfo.setText("What have you done?");
 		} catch (SQLException e) {
-			Alert empty = new Alert(AlertType.ERROR);
-			empty.setTitle("Error");
-			empty.setHeaderText("Student Not Found");
-			empty.setContentText("You are searching for a student that cannot (or shouldn't) be found.");
-			empty.showAndWait();
+			txtInfo.setText("Student " + txtStudent.getText() + " could not be found.");
+			e.printStackTrace();
 		}
 
 	}
@@ -102,12 +203,8 @@ public class Controller {
 		myPerson.setBirthdate(dpBirthdate.getValue());
 		myPerson.setGender(choiceGender.getSelectionModel().getSelectedItem());
 		myPerson.save();
-
-		Alert myAlert = new Alert(AlertType.INFORMATION);
-		myAlert.setTitle("Student Saved");
-		myAlert.setHeaderText("You Have Saved " + myPerson.getStudentID());
-		myAlert.setContentText("You have saved the life of " + myPerson.getFirstName() + myPerson.getLastName());
-
+		loadTables();
+		txtInfo.setText("Student " + myPerson.getStudentID() + " was saved.");
 	}
 
 	@FXML
@@ -122,6 +219,7 @@ public class Controller {
 				myPerson.setStudentID(Integer.parseInt(txtStudent.getText()));
 				myPerson.delete();
 				clearStudent();
+				txtInfo.clear();
 			} else {
 				Alert cancelled = new Alert(AlertType.INFORMATION);
 				cancelled.setTitle("Delete Cancelled");
@@ -129,17 +227,12 @@ public class Controller {
 				cancelled.setContentText("COWARD!");
 				cancelled.showAndWait();
 			}
-
 		} catch (NumberFormatException e) {
-			errorFormat();
+			txtInfo.setText("You must have a student to delete them. Idiot...");
 		} catch (SQLException e) {
-			errorNotFound();
+			txtInfo.setText("You did something weird");
 		} catch (RuntimeException e) {
-			Alert empty = new Alert(AlertType.ERROR);
-			empty.setTitle("Error");
-			empty.setHeaderText("Item Not Found");
-			empty.setContentText("You are searching for something that cannot (or shouldn't) be found.");
-			empty.showAndWait();
+			txtInfo.setText("That student dosen't exist.");
 		}
 	}
 
@@ -147,12 +240,24 @@ public class Controller {
 	void handleAerobic(ActionEvent event) {
 		rbtnStrength.setSelected(false);
 		enableExercise();
+		labelSets.setVisible(false);
+		labelReps.setVisible(false);
+		labelWeightLifted.setVisible(false);
+		labelMHR.setVisible(true);
+		labelAHR.setVisible(true);
+		labelDistance.setVisible(true);
 	}
 
 	@FXML
 	void handleStrength(ActionEvent event) {
 		rbtnAerobic.setSelected(false);
 		enableExercise();
+		labelMHR.setVisible(false);
+		labelAHR.setVisible(false);
+		labelDistance.setVisible(false);
+		labelSets.setVisible(true);
+		labelReps.setVisible(true);
+		labelWeightLifted.setVisible(true);
 	}
 
 	@FXML
@@ -161,30 +266,22 @@ public class Controller {
 	}
 
 	@FXML
-	private void errorFormat() {
-		Alert empty = new Alert(AlertType.ERROR);
-		empty.setTitle("Error");
-		empty.setHeaderText("Invalid Format");
-		empty.setContentText("The format used in text fields is invalid. Please retry.");
-		empty.showAndWait();
-	}
-
-	@FXML
-	private void errorNotFound() {
-		Alert empty = new Alert(AlertType.ERROR);
-		empty.setTitle("Error");
-		empty.setHeaderText("Item Not Found");
-		empty.setContentText("You are searching for something that cannot (or shouldn't) be found.");
-		empty.showAndWait();
-	}
-
-	@FXML
 	private void enableExercise() {
 		txtName.setDisable(false);
 		dpExerciseDate.setDisable(false);
+		txtExerciseSeconds.setDisable(false);
 		txtMHRSets.setDisable(false);
 		txtAHRReps.setDisable(false);
 		txtDistanceWeight.setDisable(false);
+		btnAddExercise.setDisable(false);
+		btnRemoveExercise.setDisable(false);
+	}
+
+	@FXML
+	private void loadTables() {
+		tblAerobic.getItems().setAll(myPerson.getAerobicsExercises());
+		tblStrength.getItems().setAll(myPerson.getStrengthExercises());
+		myPerson.clearAllExercises();
 	}
 
 	@FXML
