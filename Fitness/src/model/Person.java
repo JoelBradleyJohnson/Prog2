@@ -37,6 +37,11 @@ public class Person {
 	public void removeExcise(int pIndexToRemove) {
 		exercises.remove(pIndexToRemove);
 	}
+	
+	public void refreshTables() throws SQLException {
+		exercises.addAll(ExerciseAerobic.getAllByPerson(studentID));
+		exercises.addAll(ExerciseStrength.getAllByPerson(studentID));
+	}
 
 	public void load(int pStudentID) throws SQLException {
 		Database db = new Database("db.cberkstresser.name", "Exercise");
@@ -55,8 +60,7 @@ public class Person {
 			this.gender = Gender.valueOf(rsPerson.getString("Gender").toUpperCase());
 			this.birthdate = rsPerson.getDate("Birthdate").toLocalDate();
 		}
-		exercises.addAll(ExerciseAerobic.getAllByPerson(studentID));
-		exercises.addAll(ExerciseStrength.getAllByPerson(studentID));
+		refreshTables();
 	}
 
 	public void save() throws SQLException {

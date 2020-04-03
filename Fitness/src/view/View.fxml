@@ -12,14 +12,24 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="942.0" prefWidth="1441.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="942.0" prefWidth="1441.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <children>
       <Label alignment="CENTER" layoutX="48.0" layoutY="31.0" prefHeight="75.0" prefWidth="488.0" text="FITNESS TRACKER" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Arial Black" size="41.0" />
          </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="0.20952380952380953" startX="1.0" startY="1.0">
+               <stops>
+                  <Stop color="#00bbff" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
       </Label>
       <Label layoutX="24.0" layoutY="128.0" prefHeight="46.0" prefWidth="227.0" text="Personal Info" wrapText="true">
          <font>
@@ -143,7 +153,7 @@
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font></Button>
-      <Button layoutX="372.0" layoutY="376.0" mnemonicParsing="false" onAction="#handleClearStudent" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: white; -fx-border-color: black;" text="Clear">
+      <Button layoutX="372.0" layoutY="376.0" mnemonicParsing="false" onAction="#handleClearStudent" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: white;" text="Clear">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
@@ -158,7 +168,7 @@
             <Font name="Arial" size="12.0" />
          </font>
       </TextArea>
-      <Label layoutX="38.0" layoutY="494.0" prefHeight="27.0" prefWidth="110.0" text="Status" wrapText="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="494.0" prefHeight="27.0" prefWidth="110.0" text="Status" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>

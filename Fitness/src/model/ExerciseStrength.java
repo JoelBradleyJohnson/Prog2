@@ -62,13 +62,13 @@ public class ExerciseStrength extends Exercise {
 	}
 
 	@Override
-	public void delete() throws SQLException {
+	public void delete(int pStudentID, LocalDate pExerciseDate, String pExerciseName) throws SQLException {
 		Database db = new Database("db.cberkstresser.name", "Exercise");
 		List<Parameter<?>> params = new ArrayList<>();
 
-		params.add(new Parameter<Integer>(studentID));
-		params.add(new Parameter<LocalDate>(exerciseDate));
-		params.add(new Parameter<String>(exerciseName));
+		params.add(new Parameter<Integer>(pStudentID));
+		params.add(new Parameter<LocalDate>(pExerciseDate));
+		params.add(new Parameter<String>(pExerciseName));
 
 		db.executeSql("usp_DeleteExerciseStrength", params);
 		System.out.println("Strength Deleted");

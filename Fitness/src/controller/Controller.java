@@ -98,33 +98,29 @@ public class Controller {
 	@FXML
 	private void tblStrengthClicked() {
 		ExerciseStrength tempPerson = tblStrength.getSelectionModel().getSelectedItem();
-
-		if (tempPerson.getExerciseName() != null) {
-			txtName.setText(tempPerson.getExerciseName());
-		} else {
-			txtName.setText("");
-		}
+		txtName.setText(tempPerson.getExerciseName());
 		txtExerciseSeconds.setText(String.valueOf(tempPerson.getExerciseDuration()));
 		txtMHRSets.setText(String.valueOf(tempPerson.getSets()));
 		txtAHRReps.setText(String.valueOf(tempPerson.getReps()));
 		dpExerciseDate.setValue(myPerson.getBirthdate());
 		txtDistanceWeight.setText(String.valueOf(tempPerson.getWeightLifted()));
+		myStrength.setStudentID(Integer.parseInt(txtStudent.getText()));
+		myStrength.setExerciseDate(dpExerciseDate.getValue());
+		myStrength.setExerciseName(txtName.getText());
 	}
 
 	@FXML
 	private void tblAerobicClicked() {
 		ExerciseAerobic tempPerson = tblAerobic.getSelectionModel().getSelectedItem();
-
-		if (tempPerson.getExerciseName() != null) {
-			txtName.setText(tempPerson.getExerciseName());
-		} else {
-			txtName.setText("");
-		}
+		txtName.setText(tempPerson.getExerciseName());
 		txtExerciseSeconds.setText(String.valueOf(tempPerson.getExerciseDuration()));
 		txtMHRSets.setText(String.valueOf(tempPerson.getMaxHeartRate()));
 		txtAHRReps.setText(String.valueOf(tempPerson.getAverageHeartRate()));
 		dpExerciseDate.setValue(myPerson.getBirthdate());
 		txtDistanceWeight.setText(String.valueOf(tempPerson.getDistance()));
+		myAerobic.setStudentID(Integer.parseInt(txtStudent.getText()));
+		myAerobic.setExerciseDate(dpExerciseDate.getValue());
+		myAerobic.setExerciseName(txtName.getText());
 	}
 
 	@FXML
@@ -139,7 +135,6 @@ public class Controller {
 			myStrength.setReps(Integer.parseInt(txtAHRReps.getText()));
 			myStrength.setWeightLifted(Double.parseDouble(txtDistanceWeight.getText()));
 			myStrength.save();
-
 		} else if (!rbtnStrength.isSelected()) {
 			myAerobic.setStudentID(Integer.parseInt(txtStudent.getText()));
 			myAerobic.setExerciseDate(dpExerciseDate.getValue());
@@ -152,21 +147,16 @@ public class Controller {
 		}
 		loadTables();
 	}
-	
+
 	@FXML
 	void handleRemoveExercise(ActionEvent event) throws SQLException {
 		if (rbtnStrength.isSelected()) {
-			myStrength.setStudentID(Integer.parseInt(txtStudent.getText()));
-			myStrength.setExerciseDate(dpExerciseDate.getValue());
-			myStrength.setExerciseName(txtName.getText());
-			myStrength.delete();
+			myStrength.delete(myStrength.getStudentID(), myStrength.getExerciseDate(), myStrength.getExerciseName());
 		} else if (!rbtnStrength.isSelected()) {
-			myAerobic.setStudentID(Integer.parseInt(txtStudent.getText()));
-			myAerobic.setExerciseDate(dpExerciseDate.getValue());
-			myAerobic.setExerciseName(txtName.getText());
-			myAerobic.delete();
+			myAerobic.delete(myAerobic.getStudentID(), myAerobic.getExerciseDate(), myAerobic.getExerciseName());
 		}
 		loadTables();
+		txtInfo.setText("Exercise Deleted");
 	}
 
 	@FXML
@@ -266,7 +256,7 @@ public class Controller {
 	}
 
 	@FXML
-	void handleClearStudent(ActionEvent event) {
+	void handleClearStudent(ActionEvent event) throws SQLException {
 		clearStudent();
 	}
 
@@ -283,14 +273,22 @@ public class Controller {
 	}
 
 	@FXML
-	private void loadTables() {
+	private void loadTables() throws SQLException {
+		myPerson.clearAllExercises();
+		myPerson.refreshTables();
 		tblAerobic.getItems().setAll(myPerson.getAerobicsExercises());
 		tblStrength.getItems().setAll(myPerson.getStrengthExercises());
-		myPerson.clearAllExercises();
 	}
 
 	@FXML
-	private void clearStudent() {
+	private void clearStudent() throws SQLException {
+		myPerson.setBirthdate(null);
+		myPerson.setFirstName(null);
+		myPerson.setLastName(null);
+		myPerson.setGender(null);
+		myPerson.setHeight(0);
+		myPerson.setWeight(0);
+		myPerson.setStudentID(0);
 		txtStudent.clear();
 		txtFirst.clear();
 		txtLast.clear();
@@ -298,5 +296,6 @@ public class Controller {
 		txtWeight.clear();
 		dpBirthdate.setValue(null);
 		choiceGender.getSelectionModel().clearSelection();
+		loadTables();
 	}
 }

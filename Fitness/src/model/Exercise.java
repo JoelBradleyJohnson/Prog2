@@ -18,7 +18,7 @@ public abstract class Exercise {
 
 	abstract void save() throws SQLException;
 
-	abstract void delete() throws SQLException;
+	abstract void delete(int pStudentID, LocalDate pExerciseDate, String pExerciseName) throws SQLException;
 
 	/**
 	 * @return the studentID
