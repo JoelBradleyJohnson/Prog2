@@ -102,7 +102,7 @@ public class Controller {
 		txtExerciseSeconds.setText(String.valueOf(tempPerson.getExerciseDuration()));
 		txtMHRSets.setText(String.valueOf(tempPerson.getSets()));
 		txtAHRReps.setText(String.valueOf(tempPerson.getReps()));
-		dpExerciseDate.setValue(myPerson.getBirthdate());
+		dpExerciseDate.setValue(tempPerson.getExerciseDate());
 		txtDistanceWeight.setText(String.valueOf(tempPerson.getWeightLifted()));
 		myStrength.setStudentID(Integer.parseInt(txtStudent.getText()));
 		myStrength.setExerciseDate(dpExerciseDate.getValue());
@@ -116,7 +116,7 @@ public class Controller {
 		txtExerciseSeconds.setText(String.valueOf(tempPerson.getExerciseDuration()));
 		txtMHRSets.setText(String.valueOf(tempPerson.getMaxHeartRate()));
 		txtAHRReps.setText(String.valueOf(tempPerson.getAverageHeartRate()));
-		dpExerciseDate.setValue(myPerson.getBirthdate());
+		dpExerciseDate.setValue(tempPerson.getExerciseDate());
 		txtDistanceWeight.setText(String.valueOf(tempPerson.getDistance()));
 		myAerobic.setStudentID(Integer.parseInt(txtStudent.getText()));
 		myAerobic.setExerciseDate(dpExerciseDate.getValue());
@@ -135,7 +135,7 @@ public class Controller {
 			myStrength.setReps(Integer.parseInt(txtAHRReps.getText()));
 			myStrength.setWeightLifted(Double.parseDouble(txtDistanceWeight.getText()));
 			myStrength.save();
-		} else if (!rbtnStrength.isSelected()) {
+		} else if (rbtnAerobic.isSelected()) {
 			myAerobic.setStudentID(Integer.parseInt(txtStudent.getText()));
 			myAerobic.setExerciseDate(dpExerciseDate.getValue());
 			myAerobic.setExerciseName(txtName.getText());
@@ -152,8 +152,10 @@ public class Controller {
 	void handleRemoveExercise(ActionEvent event) throws SQLException {
 		if (rbtnStrength.isSelected()) {
 			myStrength.delete(myStrength.getStudentID(), myStrength.getExerciseDate(), myStrength.getExerciseName());
+			System.out.println(myStrength.getStudentID() + "blah " + myStrength.getExerciseDate() + "booie " + myStrength.getExerciseName());
 		} else if (!rbtnStrength.isSelected()) {
 			myAerobic.delete(myAerobic.getStudentID(), myAerobic.getExerciseDate(), myAerobic.getExerciseName());
+			System.out.println(myAerobic.getStudentID() + "blach " + myAerobic.getExerciseDate() + "ha " + myAerobic.getExerciseName());
 		}
 		loadTables();
 		txtInfo.setText("Exercise Deleted");

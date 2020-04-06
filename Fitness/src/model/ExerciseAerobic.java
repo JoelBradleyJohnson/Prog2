@@ -20,13 +20,13 @@ public class ExerciseAerobic extends Exercise {
 
 	@Override
 	public void load(int pStudentID, LocalDate pExerciseDate, String pExerciseName) {
-		
+
 	}
-	
+
 	public static List<ExerciseAerobic> getAllByPerson(int pStudentID) throws SQLException {
 		Database db = new Database("db.cberkstresser.name", "Exercise");
-		List<Parameter<?>> params = new ArrayList <>();
-		
+		List<Parameter<?>> params = new ArrayList<>();
+
 		List<ExerciseAerobic> returnValues = new ArrayList<>();
 		params.add(new Parameter<Integer>(pStudentID));
 		ResultSet rsExercises = db.getResultSet("usp_GetAerobicExercisesByPerson", params);
@@ -37,12 +37,12 @@ public class ExerciseAerobic extends Exercise {
 			e.setExerciseName(rsExercises.getString("ExerciseName"));
 			e.setExerciseDuration(Duration.ofSeconds(rsExercises.getInt("ExerciseSeconds")));
 			e.setMaxHeartRate(rsExercises.getInt("MaxHeartRate"));
-            e.setAverageHeartRate(rsExercises.getInt("AverageHeartRate"));
-            e.setDistance(rsExercises.getDouble("Distance"));
-            returnValues.add(e);			
+			e.setAverageHeartRate(rsExercises.getInt("AverageHeartRate"));
+			e.setDistance(rsExercises.getDouble("Distance"));
+			returnValues.add(e);
 		}
 		return returnValues;
-		
+
 	}
 
 	@Override
@@ -69,7 +69,6 @@ public class ExerciseAerobic extends Exercise {
 		params.add(new Parameter<Integer>(pStudentID));
 		params.add(new Parameter<LocalDate>(pExerciseDate));
 		params.add(new Parameter<String>(pExerciseName));
-
 		db.executeSql("usp_DeleteExerciseAerobic", params);
 		System.out.println("Aerobic Deleted");
 	}
@@ -115,5 +114,5 @@ public class ExerciseAerobic extends Exercise {
 	public void setDistance(double distance) {
 		this.distance = distance;
 	}
-	
+
 }
