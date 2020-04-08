@@ -11,78 +11,78 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="942.0" prefWidth="1441.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="942.0" prefWidth="1441.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <children>
-      <Label alignment="CENTER" layoutX="48.0" layoutY="31.0" prefHeight="75.0" prefWidth="488.0" text="FITNESS TRACKER" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font name="Arial Black" size="41.0" />
-         </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="0.20952380952380953" startX="1.0" startY="1.0">
-               <stops>
-                  <Stop color="#00bbff" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </textFill>
-      </Label>
-      <Label layoutX="24.0" layoutY="128.0" prefHeight="46.0" prefWidth="227.0" text="Personal Info" wrapText="true">
-         <font>
-            <Font name="Arial Black" size="30.0" />
-         </font>
-      </Label>
-      <Label layoutX="536.0" layoutY="128.0" prefHeight="46.0" prefWidth="227.0" text="Exercise" wrapText="true">
+      <ImageView fitHeight="969.0" fitWidth="1459.0" layoutX="-9.0" layoutY="-20.0">
+         <image>
+            <Image url="@image.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="27.0" layoutY="107.0" opacity="0.75" prefHeight="121.0" prefWidth="452.0" style="-fx-background-color: white;" />
+      <ImageView fitHeight="331.0" fitWidth="591.0" layoutX="-41.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@b.PNG" />
+         </image>
+      </ImageView>
+      <Pane layoutX="521.0" layoutY="128.0" opacity="0.75" prefHeight="259.0" prefWidth="227.0" style="-fx-background-color: black;" />
+      <Label layoutX="27.0" layoutY="430.0" prefHeight="46.0" prefWidth="227.0" text="Personal Info" wrapText="true">
          <font>
             <Font name="Arial Black" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="174.0" prefHeight="27.0" prefWidth="110.0" text="Student ID" wrapText="true">
+      <Label layoutX="536.0" layoutY="128.0" prefHeight="46.0" prefWidth="227.0" text="Exercise" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial Black" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="476.0" prefHeight="27.0" prefWidth="110.0" text="Student ID" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="208.0" prefHeight="27.0" prefWidth="110.0" text="First Name" wrapText="true">
+      <Label layoutX="41.0" layoutY="510.0" prefHeight="27.0" prefWidth="110.0" text="First Name" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="242.0" prefHeight="27.0" prefWidth="110.0" text="Last Name" wrapText="true">
+      <Label layoutX="41.0" layoutY="544.0" prefHeight="27.0" prefWidth="110.0" text="Last Name" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="275.0" prefHeight="27.0" prefWidth="110.0" text="Gender" wrapText="true">
+      <Label layoutX="41.0" layoutY="577.0" prefHeight="27.0" prefWidth="110.0" text="Gender" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="309.0" prefHeight="27.0" prefWidth="110.0" text="Birthdate" wrapText="true">
+      <Label layoutX="41.0" layoutY="611.0" prefHeight="27.0" prefWidth="110.0" text="Birthdate" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="343.0" prefHeight="27.0" prefWidth="110.0" text="Height" wrapText="true">
+      <Label layoutX="41.0" layoutY="645.0" prefHeight="27.0" prefWidth="110.0" text="Height" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="378.0" prefHeight="27.0" prefWidth="110.0" text="Weight" wrapText="true">
+      <Label layoutX="41.0" layoutY="680.0" prefHeight="27.0" prefWidth="110.0" text="Weight" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <TextField fx:id="txtStudent" layoutX="165.0" layoutY="175.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField fx:id="txtFirst" layoutX="165.0" layoutY="209.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField fx:id="txtLast" layoutX="165.0" layoutY="243.0" prefHeight="25.0" prefWidth="187.0" />
-      <ChoiceBox fx:id="choiceGender" layoutX="165.0" layoutY="276.0" prefHeight="25.0" prefWidth="187.0" />
-      <DatePicker fx:id="dpBirthdate" editable="false" layoutX="165.0" layoutY="309.0" prefHeight="28.0" prefWidth="187.0" />
-      <TextField fx:id="txtHeight" layoutX="165.0" layoutY="344.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField fx:id="txtWeight" layoutX="165.0" layoutY="379.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField fx:id="txtStudent" layoutX="168.0" layoutY="477.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField fx:id="txtFirst" layoutX="168.0" layoutY="511.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField fx:id="txtLast" layoutX="168.0" layoutY="545.0" prefHeight="25.0" prefWidth="187.0" />
+      <ChoiceBox fx:id="choiceGender" layoutX="168.0" layoutY="578.0" prefHeight="25.0" prefWidth="187.0" />
+      <DatePicker fx:id="dpBirthdate" editable="false" layoutX="168.0" layoutY="611.0" prefHeight="28.0" prefWidth="187.0" />
+      <TextField fx:id="txtHeight" layoutX="168.0" layoutY="646.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField fx:id="txtWeight" layoutX="168.0" layoutY="681.0" prefHeight="25.0" prefWidth="187.0" />
       <RadioButton fx:id="rbtnAerobic" layoutX="797.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleAerobic" prefHeight="28.0" prefWidth="134.0" text="Aerobic">
          <font>
             <Font name="Arial Bold" size="21.0" />
@@ -140,81 +140,81 @@
       <TextField fx:id="txtDistanceWeight" disable="true" layoutX="755.0" layoutY="345.0" prefHeight="25.0" prefWidth="187.0" />
       <Button fx:id="btnAddExercise" disable="true" layoutX="962.0" layoutY="175.0" mnemonicParsing="false" onAction="#handleAddExercise" prefHeight="25.0" prefWidth="152.0" text="Add Exercise" wrapText="true" />
       <Button fx:id="btnRemoveExercise" disable="true" layoutX="962.0" layoutY="209.0" mnemonicParsing="false" onAction="#handleRemoveExercise" prefHeight="25.0" prefWidth="152.0" text="Remove Exercise" />
-      <Button layoutX="372.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleLoad" prefHeight="0.0" prefWidth="134.0" text="Load Student">
+      <Button layoutX="375.0" layoutY="474.0" mnemonicParsing="false" onAction="#handleLoad" prefHeight="0.0" prefWidth="134.0" text="Load Student">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Button>
-      <Button defaultButton="true" layoutX="372.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: lightblue;" text="Save Student">
+      <Button defaultButton="true" layoutX="375.0" layoutY="542.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: lightblue;" text="Save Student">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="btnDelete" cancelButton="true" disable="true" layoutX="372.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: red;" text="Delete Student" textFill="WHITE">
+      <Button fx:id="btnDelete" cancelButton="true" disable="true" layoutX="375.0" layoutY="609.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: red;" text="Delete Student" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font></Button>
-      <Button layoutX="372.0" layoutY="376.0" mnemonicParsing="false" onAction="#handleClearStudent" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: white;" text="Clear">
+      <Button layoutX="375.0" layoutY="678.0" mnemonicParsing="false" onAction="#handleClearStudent" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: white;" text="Clear">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Button>
-      <Label layoutX="24.0" layoutY="448.0" prefHeight="46.0" prefWidth="227.0" text="Information" wrapText="true">
+      <Label layoutX="27.0" layoutY="750.0" prefHeight="46.0" prefWidth="227.0" text="Information" wrapText="true">
          <font>
             <Font name="Arial Black" size="30.0" />
          </font>
       </Label>
-      <TextArea fx:id="txtInfo" editable="false" layoutX="38.0" layoutY="521.0" prefHeight="75.0" prefWidth="488.0" wrapText="true">
+      <TextArea fx:id="txtInfo" editable="false" layoutX="41.0" layoutY="823.0" prefHeight="75.0" prefWidth="488.0" wrapText="true">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </TextArea>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="494.0" prefHeight="27.0" prefWidth="110.0" text="Status" textAlignment="CENTER" wrapText="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="796.0" prefHeight="27.0" prefWidth="110.0" text="Status" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
       <TextField fx:id="txtExerciseSeconds" disable="true" layoutX="755.0" layoutY="243.0" prefHeight="25.0" prefWidth="187.0" />
-      <Label layoutX="556.0" layoutY="174.0" prefHeight="27.0" prefWidth="141.0" text="Exercise Date" wrapText="true">
+      <Label layoutX="556.0" layoutY="174.0" prefHeight="27.0" prefWidth="141.0" text="Exercise Date" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="556.0" layoutY="208.0" prefHeight="27.0" prefWidth="152.0" text="Exercise Name" wrapText="true">
+      <Label layoutX="556.0" layoutY="208.0" prefHeight="27.0" prefWidth="152.0" text="Exercise Name" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="556.0" layoutY="242.0" prefHeight="27.0" prefWidth="187.0" text="Exercise Seconds" wrapText="true">
+      <Label layoutX="556.0" layoutY="242.0" prefHeight="27.0" prefWidth="187.0" text="Exercise Seconds" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="labelMHR" layoutX="556.0" layoutY="275.0" prefHeight="27.0" prefWidth="187.0" text="Max HR" visible="false" wrapText="true">
+      <Label fx:id="labelMHR" layoutX="556.0" layoutY="275.0" prefHeight="27.0" prefWidth="187.0" text="Max HR" textFill="WHITE" visible="false" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="labelAHR" layoutX="556.0" layoutY="310.0" prefHeight="27.0" prefWidth="187.0" text="Average HR" visible="false" wrapText="true">
+      <Label fx:id="labelAHR" layoutX="556.0" layoutY="310.0" prefHeight="27.0" prefWidth="187.0" text="Average HR" textFill="WHITE" visible="false" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="labelDistance" layoutX="556.0" layoutY="344.0" prefHeight="27.0" prefWidth="187.0" text="Distance" visible="false" wrapText="true">
+      <Label fx:id="labelDistance" layoutX="556.0" layoutY="344.0" prefHeight="27.0" prefWidth="187.0" text="Distance" textFill="WHITE" visible="false" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="labelSets" layoutX="556.0" layoutY="276.0" prefHeight="27.0" prefWidth="187.0" text="Sets" visible="false" wrapText="true">
+      <Label fx:id="labelSets" layoutX="556.0" layoutY="276.0" prefHeight="27.0" prefWidth="187.0" text="Sets" textFill="WHITE" visible="false" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="labelReps" layoutX="556.0" layoutY="310.0" prefHeight="27.0" prefWidth="187.0" text="Reps" visible="false" wrapText="true">
+      <Label fx:id="labelReps" layoutX="556.0" layoutY="310.0" prefHeight="27.0" prefWidth="187.0" text="Reps" textFill="WHITE" visible="false" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="labelWeightLifted" layoutX="556.0" layoutY="344.0" prefHeight="27.0" prefWidth="187.0" text="Weight Lifted" visible="false" wrapText="true">
+      <Label fx:id="labelWeightLifted" layoutX="556.0" layoutY="344.0" prefHeight="27.0" prefWidth="187.0" text="Weight Lifted" textFill="WHITE" visible="false" wrapText="true">
          <font>
             <Font name="Arial Bold" size="21.0" />
          </font>

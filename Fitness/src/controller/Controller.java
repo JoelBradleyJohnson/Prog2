@@ -152,13 +152,12 @@ public class Controller {
 	void handleRemoveExercise(ActionEvent event) throws SQLException {
 		if (rbtnStrength.isSelected()) {
 			myStrength.delete(myStrength.getStudentID(), myStrength.getExerciseDate(), myStrength.getExerciseName());
-			System.out.println(myStrength.getStudentID() + "blah " + myStrength.getExerciseDate() + "booie " + myStrength.getExerciseName());
 		} else if (!rbtnStrength.isSelected()) {
 			myAerobic.delete(myAerobic.getStudentID(), myAerobic.getExerciseDate(), myAerobic.getExerciseName());
-			System.out.println(myAerobic.getStudentID() + "blach " + myAerobic.getExerciseDate() + "ha " + myAerobic.getExerciseName());
 		}
 		loadTables();
-		txtInfo.setText("Exercise Deleted");
+		txtInfo.setText("Exercise " + txtName.getText() + " Deleted");
+		clearExercise();
 	}
 
 	@FXML
@@ -299,5 +298,30 @@ public class Controller {
 		dpBirthdate.setValue(null);
 		choiceGender.getSelectionModel().clearSelection();
 		loadTables();
+	}
+	
+	@FXML
+	private void clearExercise() {
+		myAerobic.setAverageHeartRate(0);
+		myAerobic.setDistance(0.0);
+		myAerobic.setExerciseDate(null);
+		myAerobic.setExerciseDate(null);
+		myAerobic.setExerciseDuration(null);
+		myAerobic.setExerciseName(null);
+		myAerobic.setMaxHeartRate(0);
+		myAerobic.setStudentID(0);
+		myStrength.setExerciseDate(null);
+		myStrength.setExerciseDuration(null);
+		myStrength.setExerciseName(null);
+		myStrength.setReps(0);
+		myStrength.setSets(0);
+		myStrength.setStudentID(0);
+		myStrength.setWeightLifted(0);
+		txtName.setText(null);
+		txtAHRReps.setText(null);
+		txtDistanceWeight.setText(null);
+		txtExerciseSeconds.setText(null);
+		txtMHRSets.setText(null);
+		dpExerciseDate.setValue(null);
 	}
 }
