@@ -41,13 +41,16 @@ public class Controller {
 	private Label labelMHR, labelAHR, labelDistance, labelSets, labelReps, labelWeightLifted;
 
 	@FXML
+	private Label astID, astFN, astLN, astG, astB, astH, astW, astED, astES, astEN, astEMS, astEAR, astEDW;
+
+	@FXML
 	private TextArea txtInfo;
 
 	@FXML
 	private ChoiceBox<Gender> choiceGender;
 
 	@FXML
-	private Button btnDelete, btnAddExercise, btnRemoveExercise;
+	private Button btnDelete, btnAddExercise, btnRemoveExercise, btnClearExercise;
 
 	@FXML
 	private RadioButton rbtnAerobic, rbtnStrength;
@@ -125,106 +128,142 @@ public class Controller {
 
 	@FXML
 	void handleAddExercise(ActionEvent event) throws SQLException {
-
-		if (rbtnStrength.isSelected()) {
-			myStrength.setStudentID(Integer.parseInt(txtStudent.getText()));
-			myStrength.setExerciseDate(dpExerciseDate.getValue());
-			myStrength.setExerciseName(txtName.getText());
-			myStrength.setExerciseDuration(Duration.ofSeconds(Long.parseLong(txtExerciseSeconds.getText())));
-			myStrength.setSets(Integer.parseInt(txtMHRSets.getText()));
-			myStrength.setReps(Integer.parseInt(txtAHRReps.getText()));
-			myStrength.setWeightLifted(Double.parseDouble(txtDistanceWeight.getText()));
-			myStrength.save();
-		} else if (rbtnAerobic.isSelected()) {
-			myAerobic.setStudentID(Integer.parseInt(txtStudent.getText()));
-			myAerobic.setExerciseDate(dpExerciseDate.getValue());
-			myAerobic.setExerciseName(txtName.getText());
-			myAerobic.setExerciseDuration(Duration.ofSeconds(Long.parseLong(txtExerciseSeconds.getText())));
-			myAerobic.setMaxHeartRate(Integer.parseInt(txtMHRSets.getText()));
-			myAerobic.setAverageHeartRate(Integer.parseInt(txtAHRReps.getText()));
-			myAerobic.setDistance(Double.parseDouble(txtDistanceWeight.getText()));
-			myAerobic.save();
+		if (checkExercise()) {
+			txtInfo.setText("You must fill in all marked fields with valid data.");
+		} else {
+			if (rbtnStrength.isSelected()) {
+				myStrength.setStudentID(Integer.parseInt(txtStudent.getText()));
+				myStrength.setExerciseDate(dpExerciseDate.getValue());
+				myStrength.setExerciseName(txtName.getText());
+				myStrength.setExerciseDuration(Duration.ofSeconds(Long.parseLong(txtExerciseSeconds.getText())));
+				myStrength.setSets(Integer.parseInt(txtMHRSets.getText()));
+				myStrength.setReps(Integer.parseInt(txtAHRReps.getText()));
+				myStrength.setWeightLifted(Double.parseDouble(txtDistanceWeight.getText()));
+				myStrength.save();
+			} else if (rbtnAerobic.isSelected()) {
+				myAerobic.setStudentID(Integer.parseInt(txtStudent.getText()));
+				myAerobic.setExerciseDate(dpExerciseDate.getValue());
+				myAerobic.setExerciseName(txtName.getText());
+				myAerobic.setExerciseDuration(Duration.ofSeconds(Long.parseLong(txtExerciseSeconds.getText())));
+				myAerobic.setMaxHeartRate(Integer.parseInt(txtMHRSets.getText()));
+				myAerobic.setAverageHeartRate(Integer.parseInt(txtAHRReps.getText()));
+				myAerobic.setDistance(Double.parseDouble(txtDistanceWeight.getText()));
+				myAerobic.save();
+			}
+			loadTables();
 		}
-		loadTables();
 	}
 
 	@FXML
 	void handleRemoveExercise(ActionEvent event) throws SQLException {
-		if (rbtnStrength.isSelected()) {
-			myStrength.delete(myStrength.getStudentID(), myStrength.getExerciseDate(), myStrength.getExerciseName());
-		} else if (!rbtnStrength.isSelected()) {
-			myAerobic.delete(myAerobic.getStudentID(), myAerobic.getExerciseDate(), myAerobic.getExerciseName());
+		if (checkExercise()) {
+			txtInfo.setText("You must fill in all marked fields with valid data.");
+		} else {
+			if (rbtnStrength.isSelected()) {
+				myStrength.delete(myStrength.getStudentID(), myStrength.getExerciseDate(),
+						myStrength.getExerciseName());
+			} else if (!rbtnStrength.isSelected()) {
+				myAerobic.delete(myAerobic.getStudentID(), myAerobic.getExerciseDate(), myAerobic.getExerciseName());
+			}
+			loadTables();
+			txtInfo.setText("Exercise " + txtName.getText() + " Deleted");
+			clearExercise();
 		}
-		loadTables();
-		txtInfo.setText("Exercise " + txtName.getText() + " Deleted");
+	}
+
+	@FXML
+	void handleClearExercise(ActionEvent event) {
 		clearExercise();
 	}
 
 	@FXML
 	void handleLoad(ActionEvent event) {
-		try {
-			myPerson.load(Integer.parseInt((txtStudent.getText())));
-			txtStudent.setText(String.valueOf(myPerson.getStudentID()));
-			txtFirst.setText((myPerson.getFirstName()));
-			txtLast.setText((myPerson.getLastName()));
-			txtHeight.setText(String.valueOf(myPerson.getHeight()));
-			txtWeight.setText(String.valueOf(myPerson.getWeight()));
-			dpBirthdate.setValue(myPerson.getBirthdate());
-			choiceGender.getSelectionModel().select(myPerson.getGender());
-			txtInfo.clear();
-			btnDelete.setDisable(false);
-			loadTables();
-			txtInfo.setText("Student " + myPerson.getStudentID() + " loaded.");
-		} catch (IllegalArgumentException e) {
-			txtInfo.setText("Student " + txtStudent.getText() + " could not be found.");
-		} catch (RuntimeException e) {
-			txtInfo.setText("What have you done?");
-		} catch (SQLException e) {
-			txtInfo.setText("Student " + txtStudent.getText() + " could not be found.");
-			e.printStackTrace();
+		if (checkDeleteLoad()) {
+			txtInfo.setText("You must fill in all marked fields with valid data.");
+		} else {
+			try {
+				myPerson.load(Integer.parseInt((txtStudent.getText())));
+				if (myPerson.getStudentID() == 0) {
+					txtInfo.setText("That student was not found.");
+				} else {
+					txtStudent.setText(String.valueOf(myPerson.getStudentID()));
+					txtFirst.setText((myPerson.getFirstName()));
+					txtLast.setText((myPerson.getLastName()));
+					txtHeight.setText(String.valueOf(myPerson.getHeight()));
+					txtWeight.setText(String.valueOf(myPerson.getWeight()));
+					dpBirthdate.setValue(myPerson.getBirthdate());
+					choiceGender.getSelectionModel().select(myPerson.getGender());
+					txtInfo.clear();
+					btnDelete.setDisable(false);
+					loadTables();
+					txtInfo.setText("Student " + myPerson.getStudentID() + " loaded.");
+					rbtnAerobic.setDisable(false);
+					rbtnStrength.setDisable(false);
+				}
+			} catch (IllegalArgumentException e) {
+				txtInfo.setText("Student " + txtStudent.getText() + " could not be found.");
+			} catch (RuntimeException e) {
+				txtInfo.setText("What have you done?");
+			} catch (SQLException e) {
+				txtInfo.setText("Student " + txtStudent.getText() + " could not be found.");
+				e.printStackTrace();
+			}
 		}
 	}
 
 	@FXML
 	void handleSave(ActionEvent event) throws SQLException {
-		myPerson.setStudentID(Integer.parseInt(txtStudent.getText()));
-		myPerson.setFirstName(txtFirst.getText());
-		myPerson.setLastName(txtLast.getText());
-		myPerson.setHeight(Double.parseDouble(txtHeight.getText()));
-		myPerson.setWeight(Double.parseDouble(txtWeight.getText()));
-		myPerson.setBirthdate(dpBirthdate.getValue());
-		myPerson.setGender(choiceGender.getSelectionModel().getSelectedItem());
-		myPerson.save();
-		loadTables();
-		txtInfo.setText("Student " + myPerson.getStudentID() + " was saved.");
+		if (checkStudentBoxes()) {
+			txtInfo.setText("You must fill in all marked fields with valid data.");
+		} else {
+			myPerson.setStudentID(Integer.parseInt(txtStudent.getText()));
+			myPerson.setFirstName(txtFirst.getText());
+			myPerson.setLastName(txtLast.getText());
+			myPerson.setHeight(Double.parseDouble(txtHeight.getText()));
+			myPerson.setWeight(Double.parseDouble(txtWeight.getText()));
+			myPerson.setBirthdate(dpBirthdate.getValue());
+			myPerson.setGender(choiceGender.getSelectionModel().getSelectedItem());
+			myPerson.save();
+			loadTables();
+			txtInfo.setText("Student " + myPerson.getStudentID() + " was saved.");
+			rbtnAerobic.setDisable(false);
+			rbtnStrength.setDisable(false);
+		}
 	}
 
 	@FXML
 	void handleDelete(ActionEvent event) {
-		try {
-			Alert empty = new Alert(AlertType.CONFIRMATION);
-			empty.setTitle("Are You Sure?");
-			empty.setHeaderText("Kill " + txtStudent.getText());
-			empty.setContentText("You are about to do something very grave to student " + txtStudent.getText());
-			Optional<ButtonType> answer = empty.showAndWait();
-			if (answer.isPresent() && answer.get().equals(ButtonType.OK)) {
-				myPerson.setStudentID(Integer.parseInt(txtStudent.getText()));
-				myPerson.delete();
-				clearStudent();
-				txtInfo.clear();
-			} else {
-				Alert cancelled = new Alert(AlertType.INFORMATION);
-				cancelled.setTitle("Delete Cancelled");
-				cancelled.setHeaderText("Fool");
-				cancelled.setContentText("COWARD!");
-				cancelled.showAndWait();
+		if (checkDeleteLoad()) {
+			txtInfo.setText("You must fill in all marked fields with valid data.");
+		} else {
+			try {
+				Alert empty = new Alert(AlertType.CONFIRMATION);
+				empty.setTitle("Are You Sure?");
+				empty.setHeaderText("Kill " + txtStudent.getText());
+				empty.setContentText("You are about to do something very grave to student " + txtStudent.getText());
+				Optional<ButtonType> answer = empty.showAndWait();
+				if (answer.isPresent() && answer.get().equals(ButtonType.OK)) {
+					myPerson.setStudentID(Integer.parseInt(txtStudent.getText()));
+					myPerson.delete();
+					clearStudent();
+					txtInfo.clear();
+					rbtnAerobic.setDisable(true);
+					rbtnStrength.setDisable(true);
+					disableExercise();
+				} else {
+					Alert cancelled = new Alert(AlertType.INFORMATION);
+					cancelled.setTitle("Delete Cancelled");
+					cancelled.setHeaderText("Fool");
+					cancelled.setContentText("COWARD!");
+					cancelled.showAndWait();
+				}
+			} catch (NumberFormatException e) {
+				txtInfo.setText("You must have a student to delete them. Idiot...");
+			} catch (SQLException e) {
+				txtInfo.setText("You did something weird");
+			} catch (RuntimeException e) {
+				txtInfo.setText("That student dosen't exist.");
 			}
-		} catch (NumberFormatException e) {
-			txtInfo.setText("You must have a student to delete them. Idiot...");
-		} catch (SQLException e) {
-			txtInfo.setText("You did something weird");
-		} catch (RuntimeException e) {
-			txtInfo.setText("That student dosen't exist.");
 		}
 	}
 
@@ -240,6 +279,7 @@ public class Controller {
 		labelMHR.setVisible(true);
 		labelAHR.setVisible(true);
 		labelDistance.setVisible(true);
+		clearExercise();
 	}
 
 	@FXML
@@ -254,6 +294,7 @@ public class Controller {
 		labelSets.setVisible(true);
 		labelReps.setVisible(true);
 		labelWeightLifted.setVisible(true);
+		clearExercise();
 	}
 
 	@FXML
@@ -271,6 +312,20 @@ public class Controller {
 		txtDistanceWeight.setDisable(false);
 		btnAddExercise.setDisable(false);
 		btnRemoveExercise.setDisable(false);
+		btnClearExercise.setDisable(false);
+	}
+
+	@FXML
+	private void disableExercise() {
+		txtName.setDisable(true);
+		dpExerciseDate.setDisable(true);
+		txtExerciseSeconds.setDisable(true);
+		txtMHRSets.setDisable(true);
+		txtAHRReps.setDisable(true);
+		txtDistanceWeight.setDisable(true);
+		btnAddExercise.setDisable(true);
+		btnRemoveExercise.setDisable(true);
+		btnClearExercise.setDisable(true);
 	}
 
 	@FXML
@@ -298,8 +353,19 @@ public class Controller {
 		dpBirthdate.setValue(null);
 		choiceGender.getSelectionModel().clearSelection();
 		loadTables();
+		astID.setVisible(false);
+		astFN.setVisible(false);
+		astLN.setVisible(false);
+		astG.setVisible(false);
+		astB.setVisible(false);
+		astH.setVisible(false);
+		astW.setVisible(false);
+		rbtnAerobic.setDisable(true);
+		rbtnStrength.setDisable(true);
+		rbtnAerobic.setSelected(false);
+		rbtnStrength.setSelected(false);
 	}
-	
+
 	@FXML
 	private void clearExercise() {
 		myAerobic.setAverageHeartRate(0);
@@ -323,5 +389,100 @@ public class Controller {
 		txtExerciseSeconds.setText(null);
 		txtMHRSets.setText(null);
 		dpExerciseDate.setValue(null);
+		astED.setVisible(false);
+		astES.setVisible(false);
+		astEN.setVisible(false);
+		astEMS.setVisible(false);
+		astEAR.setVisible(false);
+		astEDW.setVisible(false);
+	}
+
+	@FXML
+	private boolean checkStudentBoxes() {
+		boolean textIsEmpty = false;
+		astID.setVisible(false);
+		astFN.setVisible(false);
+		astLN.setVisible(false);
+		astG.setVisible(false);
+		astB.setVisible(false);
+		astH.setVisible(false);
+		astW.setVisible(false);
+
+		if (txtStudent.getText().isBlank() || !txtStudent.getText().matches("^[1-9]\\d*$")) {
+			textIsEmpty = true;
+			astID.setVisible(true);
+		}
+		if (txtFirst.getText().isBlank() || !txtFirst.getText().matches("^[a-zA-Z]+$")) {
+			textIsEmpty = true;
+			astFN.setVisible(true);
+		}
+		if (txtLast.getText().isBlank() || !txtLast.getText().matches("^[a-zA-Z]+$")) {
+			textIsEmpty = true;
+			astLN.setVisible(true);
+		}
+		if (choiceGender.getSelectionModel().isEmpty()) {
+			textIsEmpty = true;
+			astG.setVisible(true);
+		}
+		if (dpBirthdate.getValue() == null) {
+			textIsEmpty = true;
+			astB.setVisible(true);
+		}
+		if (txtHeight.getText().isEmpty()) {
+			textIsEmpty = true;
+			astH.setVisible(true);
+		}
+		if (txtWeight.getText().isEmpty()) {
+			textIsEmpty = true;
+			astW.setVisible(true);
+		}
+		return textIsEmpty;
+	}
+
+	@FXML
+	private boolean checkDeleteLoad() {
+		boolean isEmpty = false;
+		if (txtStudent.getText().isBlank() || !txtStudent.getText().matches("^[1-9]\\d*$")) {
+			isEmpty = true;
+			astID.setVisible(true);
+		}
+		return isEmpty;
+	}
+
+	// astEMS, astAR, astDW
+	@FXML
+	private boolean checkExercise() {
+		boolean isEmpty = false;
+		astED.setVisible(false);
+		astES.setVisible(false);
+		astEN.setVisible(false);
+		astEMS.setVisible(false);
+		astEAR.setVisible(false);
+		astEDW.setVisible(false);
+		if (dpExerciseDate.getValue() == null) {
+			astED.setVisible(true);
+			isEmpty = true;
+		}
+		if (txtExerciseSeconds.getText().isBlank() || !txtExerciseSeconds.getText().matches("^[1-9]\\d*$")) {
+			astES.setVisible(true);
+			isEmpty = true;
+		}
+		if (txtName.getText().isBlank()) {
+			astEN.setVisible(true);
+			isEmpty = true;
+		}
+		if (txtMHRSets.getText().isBlank() || !txtMHRSets.getText().matches("^[1-9]\\d*$")) {
+			astEMS.setVisible(true);
+			isEmpty = true;
+		}
+		if (txtAHRReps.getText().isBlank() || !txtAHRReps.getText().matches("^[1-9]\\d*$")) {
+			astEAR.setVisible(true);
+			isEmpty = true;
+		}
+		if (txtDistanceWeight.getText().isBlank()) {
+			astEDW.setVisible(true);
+			isEmpty = true;
+		}
+		return isEmpty;
 	}
 }
