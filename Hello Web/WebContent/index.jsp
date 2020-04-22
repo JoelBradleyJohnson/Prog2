@@ -10,31 +10,24 @@
 </head>
 
 <body>
+	<%
+		Circuit myCircuit = (Circuit) request.getAttribute("myCircuit");
+	%>
 	<div id="wrapper">
 		<header>
-			<h1>This will calculate amperage given voltage and resistance are known</h1>
+			<h1>Amperage Calculator</h1>
 		</header>
 		<main>
-			<div class="form">
-				<form>
-					<label for=txtVoltage>Voltage:</label>
-					<input name=txtVoltage type=number min=0.01 step=0.01 required><br>
-					<label for=txtResistance>Resistance:</label>
-					<input name=txtResistance type=number min=0.01 step=0.01 required><br><br>
-					<input type=submit value="Calculate Amperage" name=cmdSubmit>
-					<%
-					//only show this if user has submitted the form rather than initially getting it.
-					if (request.getParameter("cmdSubmit") != null) {
-						Circuit myCircuit = new Circuit();
-
-						myCircuit.setVoltage(Double.parseDouble(request.getParameter("txtVoltage")));
-						myCircuit.setResistance(Double.parseDouble(request.getParameter("txtResistance")));
-
-						out.println("<br><br>The amperage is " + myCircuit.getAmperage());
-					}
+			<form method=post>
+				<label for=txtVoltage>Voltage:</label><br>
+				<input name=txtVoltage type=number min=0.01 step=0.01 required><br>
+				<label for=txtResistance>Resistance:</label><br>
+				<input name=txtResistance type=number min=0.01 step=0.01 required><br><br>
+				<input type=submit value="Calculate Amperage" name=cmdSubmit>
+				<%
+					out.println("<br><br>The amperage is " + myCircuit.getAmperage());
 				%>
-				</form>
-			</div>
+			</form>
 		</main>
 	</div>
 </body>
