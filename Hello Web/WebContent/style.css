@@ -8,11 +8,6 @@ body {
 	background-color #464646;
 }
 
-h1 {
-	margin-top: 0px;
-	text-align: center;
-}
-
 #wrapper {
 	background-color: black;
 	width: 50%;
@@ -23,3 +18,9 @@ h1 {
 	padding-right: 10px;
 	padding-left: 10px;
 }
+
+h1 {
+	margin-top: 0px;
+	text-align: center;
+}
+
