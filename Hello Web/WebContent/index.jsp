@@ -23,7 +23,7 @@
 				<input name=txtResistance type=number min=0.01 step=0.01 required value="${myCircuit.getResistance()}"><br><br>
 				<input type=submit value="Calculate Amperage" name=cmdSubmit>
 				<c:if test="${myCircuit.getResistance() != 0}">
-                	<c:out value="The amperage is ${myCircuit.getAmperage()} amps"/>
+                <c:out value="The amperage is ${myCircuit.getAmperage()} amps"/>
             	</c:if>
 			</form>
 		</main>
